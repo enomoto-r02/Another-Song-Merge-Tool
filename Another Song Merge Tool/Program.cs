@@ -17,9 +17,8 @@ namespace ModDbMerge2
             if (string.IsNullOrEmpty(new_file_name) == false)
             {
                 Console.WriteLine("{0} 退避完了", new_file_name);
+                Console.WriteLine();
             }
-
-            Console.WriteLine("mod_pv_db.txt 生成中...");
 
             DivaModManager dmm = new(Config);
 
@@ -29,17 +28,20 @@ namespace ModDbMerge2
             }
             Console.WriteLine();
 
+            Console.WriteLine("mod_pv_db.txt 生成中...");
+
             dmm.ReadPvDb();
 
             Mod merge_mod = dmm.Composition();
 
             Program.Output(dmm, merge_mod);
+
+            Console.WriteLine("mod_pv_db.txt 生成完了");
+            Console.WriteLine();
 #if DEBUG
             System.Diagnostics.Process.Start("EXPLORER.EXE", "mod_pv_db.txt");
 #endif
 
-            Console.WriteLine("mod_pv_db.txt 生成完了");
-            Console.WriteLine();
             Console.WriteLine("いずれかのキーを押すと終了します。");
             Console.ReadKey();
         }
