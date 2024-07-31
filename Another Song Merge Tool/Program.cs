@@ -69,7 +69,7 @@ namespace Another_Song_Merge_Tool
                 }
             }
 
-            FileUtil.WriteFile(sb.ToString(), "mod_pv_db.txt", false);
+            FileUtil.WriteFile_UTF_8_NO_BOM(sb.ToString(), "mod_pv_db.txt", false);
         }
     }
 }

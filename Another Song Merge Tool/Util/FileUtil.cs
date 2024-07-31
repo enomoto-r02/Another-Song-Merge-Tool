@@ -1,4 +1,6 @@
-﻿namespace Another_Song_Merge_Tool.Util
+﻿using System.Text;
+
+namespace Another_Song_Merge_Tool.Util
 {
     public static class FileUtil
     {
@@ -15,8 +17,18 @@
             using (StreamWriter writer = new StreamWriter(
                 path,
                 addFlg,
-                System.Text.Encoding.UTF8
+                Encoding.UTF8
             ))
+            {
+                writer.Write(str);
+                writer.Close();
+            }
+        }
+
+        public static void WriteFile_UTF_8_NO_BOM(string str, string path, Boolean addFlg)
+        {
+            // UTF-8 BOM無し
+            using (StreamWriter writer = new StreamWriter(path))
             {
                 writer.Write(str);
                 writer.Close();
@@ -29,7 +41,7 @@
 
             using (StreamReader sr = new StreamReader(
                 path,
-                System.Text.Encoding.UTF8
+                Encoding.UTF8
             ))
             {
                 ret = sr.ReadToEnd();
