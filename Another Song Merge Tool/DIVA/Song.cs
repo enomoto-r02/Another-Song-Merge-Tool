@@ -1,4 +1,6 @@
-﻿namespace Another_Song_Merge_Tool.DIVA
+﻿using System.Text;
+
+namespace Another_Song_Merge_Tool.DIVA
 {
     public class Song
     {
@@ -11,34 +13,39 @@
 
 
         public int Another_No { get; set; }
+        public string Vocal_Chara_Num { get; set; }
         public string Vocal_Disp_Name { get; set; }
         public string Vocal_Disp_Name_En { get; set; }
 
         public override string ToString()
         {
-            string ret = "";
+            StringBuilder ret = new StringBuilder();
 
             if (string.IsNullOrEmpty(this.Name) == false || string.IsNullOrEmpty(this.Name_en) == false)
             {
                 if (string.IsNullOrEmpty(this.Name) == false)
                 {
-                    ret += string.Join(".", this.Pv_No, "another_song", this.Another_No, "name") + "=" + this.Name + "\n";
+                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "name") + "=" + this.Name);
                 }
                 if (string.IsNullOrEmpty(this.Name_en) == false)
                 {
-                    ret += string.Join(".", this.Pv_No, "another_song", this.Another_No, "name_en") + "=" + this.Name_en + "\n";
+                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "name_en") + "=" + this.Name_en);
                 }
                 if (string.IsNullOrEmpty(this.Song_File_Name) == false && this.Another_No > 0)
                 {
-                    ret += string.Join(".", this.Pv_No, "another_song", this.Another_No, "song_file_name") + "=" + this.Song_File_Name + "\n";
+                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "song_file_name") + "=" + this.Song_File_Name);
+                }
+                if (string.IsNullOrEmpty(this.Vocal_Chara_Num) == false && this.Another_No > 0)
+                {
+                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_chara_num") + "=" + this.Vocal_Chara_Num);
                 }
                 if (string.IsNullOrEmpty(this.Vocal_Disp_Name) == false)
                 {
-                    ret += string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name") + "=" + this.Vocal_Disp_Name + "\n";
+                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name") + "=" + this.Vocal_Disp_Name);
                 }
                 if (string.IsNullOrEmpty(this.Vocal_Disp_Name_En) == false)
                 {
-                    ret += string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name_en") + "=" + this.Vocal_Disp_Name_En + "\n";
+                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name_en") + "=" + this.Vocal_Disp_Name_En);
                 }
             }
             else
@@ -47,7 +54,7 @@
                 return "Song#ToString() : Length";
             }
 
-            return ret;
+            return ret.ToString();
         }
 
         public string ToString(Config Config, List<Song> Add_AnotherSong)
@@ -55,7 +62,7 @@
             var hoge = Add_AnotherSong.OrderBy(x => x.Pv_No);
 
 
-            string ret = "";
+            StringBuilder ret = new StringBuilder();
 
             if (string.IsNullOrEmpty(this.Name) == false || string.IsNullOrEmpty(this.Name_en) == false)
             {
@@ -66,7 +73,7 @@
                     {
                         append = Config.AnotherSongMarkPrefix;
                     }
-                    ret += string.Join(".", this.Pv_No, "another_song", this.Another_No, "name") + "=" + append + this.Name + "\n";
+                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "name") + "=" + append + this.Name);
                 }
                 if (string.IsNullOrEmpty(this.Name_en) == false)
                 {
@@ -75,19 +82,23 @@
                     {
                         append = Config.AnotherSongMarkPrefix;
                     }
-                    ret += string.Join(".", this.Pv_No, "another_song", this.Another_No, "name_en") + "=" + append + this.Name_en + "\n";
+                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "name_en") + "=" + append + this.Name_en);
                 }
                 if (string.IsNullOrEmpty(this.Song_File_Name) == false && this.Another_No > 0)
                 {
-                    ret += string.Join(".", this.Pv_No, "another_song", this.Another_No, "song_file_name") + "=" + this.Song_File_Name + "\n";
+                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "song_file_name") + "=" + this.Song_File_Name);
+                }
+                if (string.IsNullOrEmpty(this.Vocal_Chara_Num) == false && this.Another_No > 0)
+                {
+                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_chara_num") + "=" + this.Vocal_Chara_Num);
                 }
                 if (string.IsNullOrEmpty(this.Vocal_Disp_Name) == false)
                 {
-                    ret += string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name") + "=" + this.Vocal_Disp_Name + "\n";
+                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name") + "=" + this.Vocal_Disp_Name);
                 }
                 if (string.IsNullOrEmpty(this.Vocal_Disp_Name_En) == false)
                 {
-                    ret += string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name_en") + "=" + this.Vocal_Disp_Name_En + "\n";
+                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name_en") + "=" + this.Vocal_Disp_Name_En);
                 }
             }
             else
@@ -96,7 +107,7 @@
                 return "Song#ToString() : Length";
             }
 
-            return ret;
+            return ret.ToString();
         }
     }
 }

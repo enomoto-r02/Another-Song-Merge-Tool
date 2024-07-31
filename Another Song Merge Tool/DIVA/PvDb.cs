@@ -78,7 +78,11 @@
                     }
                     if (song_line.Parameters.Length > 2)
                     {
-                        if (song_line.Parameters[0] == "another_song" && song_line.Parameters[2] == "vocal_disp_name")
+                        if (song_line.Parameters[0] == "another_song" && song_line.Parameters[2] == "vocal_chara_num")
+                        {
+                            add_another.Vocal_Chara_Num = song_line.Value;
+                        }
+                        else if (song_line.Parameters[0] == "another_song" && song_line.Parameters[2] == "vocal_disp_name")
                         {
                             add_another.Vocal_Disp_Name = song_line.Value;
                         }
@@ -156,6 +160,7 @@
                             if (song_line.Parameters[2] == "name") { another.Name = song_line.Value; }
                             else if (song_line.Parameters[2] == "name_en") { another.Name_en = song_line.Value; }
                             else if (song_line.Parameters[2] == "song_file_name") { another.Song_File_Name = song_line.Value; }
+                            else if (song_line.Parameters[2] == "vocal_chara_num") { another.Vocal_Chara_Num = song_line.Value; }
                             else if (song_line.Parameters[2] == "vocal_disp_name") { another.Vocal_Disp_Name = song_line.Value; }
                             else if (song_line.Parameters[2] == "vocal_disp_name_en") { another.Vocal_Disp_Name_En = song_line.Value; }
                         }
