@@ -30,7 +30,7 @@ namespace ModDbMerge2.DIVA
                 {
                     ret += string.Join(".", this.Pv_No, "another_song", this.Another_No, "name_en") + "=" + this.Name_en + "\n";
                 }
-                if (string.IsNullOrEmpty(this.Song_File_Name) == false)
+                if (string.IsNullOrEmpty(this.Song_File_Name) == false && this.Another_No > 0)
                 {
                     ret += string.Join(".", this.Pv_No, "another_song", this.Another_No, "song_file_name") + "=" + this.Song_File_Name + "\n";
                 }
@@ -64,10 +64,6 @@ namespace ModDbMerge2.DIVA
                 if (string.IsNullOrEmpty(this.Name) == false)
                 {
                     var append = "";
-                    if (this.Pv_No == "pv_726")
-                    {
-                        ;
-                    }
                     if (Add_AnotherSong.Where(x => x.Pv_No == this.Pv_No && x.Another_No > 0).Count() > 0)
                     {
                         append = "★";
@@ -83,7 +79,7 @@ namespace ModDbMerge2.DIVA
                     }
                     ret += string.Join(".", this.Pv_No, "another_song", this.Another_No, "name_en") + "=" + append +this.Name_en + "\n";
                 }
-                if (string.IsNullOrEmpty(this.Song_File_Name) == false)
+                if (string.IsNullOrEmpty(this.Song_File_Name) == false && this.Another_No > 0)
                 {
                     ret += string.Join(".", this.Pv_No, "another_song", this.Another_No, "song_file_name") + "=" + this.Song_File_Name + "\n";
                 }

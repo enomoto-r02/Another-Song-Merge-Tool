@@ -110,11 +110,18 @@ namespace ModDbMerge2.DIVA
                 // song_file_nameが重複しない場合はオリジナル楽曲をanother_songに楽曲を追加
                 if (addAnotherSong.Where(x => x.Song_File_Name == add_another.Song_File_Name).Count() == 0)
                 {
-                    //// この対応は疑問ありだが、他の手段がわからず
-                    if (add_another.Another_No == 0) { add_another.Vocal_Disp_Name = "オリジナル"; }
-                    if (add_another.Another_No == 0) { add_another.Vocal_Disp_Name_En = "Original"; }
-                    //if (string.IsNullOrEmpty(add_another.Vocal_Disp_Name)) { add_another.Vocal_Disp_Name = Path.GetFileName(Song_File_Name); }
-                    //if (string.IsNullOrEmpty(add_another.Vocal_Disp_Name_En)) { add_another.Vocal_Disp_Name_En = Path.GetFileName(Song_File_Name); }
+                    if (add_another.Another_No == 0)
+                    {
+                        //if (string.IsNullOrEmpty(add_another.Vocal_Disp_Name)) { add_another.Vocal_Disp_Name = "オリジナル"; }
+                        //if (string.IsNullOrEmpty(add_another.Vocal_Disp_Name_En)) { add_another.Vocal_Disp_Name_En = "Original"; }
+                        add_another.Vocal_Disp_Name = "オリジナル";
+                        add_another.Vocal_Disp_Name_En = "Original";
+                    }
+                    else
+                    {
+                        if (string.IsNullOrEmpty(add_another.Vocal_Disp_Name)) { add_another.Vocal_Disp_Name = Path.GetFileName(Song_File_Name); }
+                        if (string.IsNullOrEmpty(add_another.Vocal_Disp_Name_En)) { add_another.Vocal_Disp_Name_En = Path.GetFileName(Song_File_Name); }
+                    }
 
                     addAnotherSong.Add(add_another);
                     song_no_cnt.Add(add_another.Pv_No);
