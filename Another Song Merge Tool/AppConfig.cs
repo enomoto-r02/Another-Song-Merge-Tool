@@ -1,16 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
-using ModDbMerge2.Manager;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Another_Song_Merge_Tool.Manager;
+using Microsoft.Extensions.Configuration;
 
-namespace ModDbMerge2
+namespace Another_Song_Merge_Tool
 {
     public class AppConfig
     {
         static AppConfig Instance;
+        public Config Config { get; set; }
 
         public DivaModManagerConfig DivaModManager { get; set; }
 

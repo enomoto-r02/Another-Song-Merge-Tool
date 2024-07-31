@@ -1,9 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
-using ModDbMerge2.DIVA;
-using System.Linq;
+﻿using Another_Song_Merge_Tool.DIVA;
+using Microsoft.Extensions.Configuration;
 using System.Text;
 
-namespace ModDbMerge2.Manager
+namespace Another_Song_Merge_Tool.Manager
 {
     public class DivaModManager
     {
@@ -138,14 +137,14 @@ namespace ModDbMerge2.Manager
                     }
                     composition_mod.Pv_Db.Song_Lines.Add(song_data);
 
-                    if (string.IsNullOrEmpty(song_pv_no)) 
+                    if (string.IsNullOrEmpty(song_pv_no))
                     {
-                        song_pv_no = song_data.Pv_No; 
+                        song_pv_no = song_data.Pv_No;
                     }
                 }
 
                 // 読み込み済楽曲として設定
-                if(string.IsNullOrEmpty(song_pv_no) == false)
+                if (string.IsNullOrEmpty(song_pv_no) == false)
                 {
                     Add_Song.Add(song_pv_no);
                 }
@@ -176,7 +175,7 @@ namespace ModDbMerge2.Manager
                         }
                         composition_mod.Pv_Db.Song_Lines.Add(song_line);
                     }
-                    
+
                     // 読み込み済楽曲として設定
                     Add_Song.Add(pv_no.Key);
                 }

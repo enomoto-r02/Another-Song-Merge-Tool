@@ -1,15 +1,14 @@
-﻿using ModDbMerge2.Util;
-using ModDbMerge2.DIVA;
-using ModDbMerge2.Manager;
-using System.Text;
+﻿using Another_Song_Merge_Tool.DIVA;
+using Another_Song_Merge_Tool.Manager;
+using Another_Song_Merge_Tool.Util;
 using NaturalSort.Extension;
-using System.Collections.Generic;
+using System.Text;
 
-namespace ModDbMerge2
+namespace Another_Song_Merge_Tool
 {
     class Program
     {
-        static readonly AppConfig Config = AppConfig.Get();
+        static readonly AppConfig appConfig = AppConfig.Get();
 
         static void Main(string[] args)
         {
@@ -20,7 +19,7 @@ namespace ModDbMerge2
                 Console.WriteLine();
             }
 
-            DivaModManager dmm = new(Config);
+            DivaModManager dmm = new(appConfig);
 
             foreach (var item in dmm.Mods)
             {
@@ -34,7 +33,7 @@ namespace ModDbMerge2
 
             Mod merge_mod = dmm.Composition();
 
-            Program.Output(dmm, merge_mod);
+            Output(dmm, merge_mod);
 
             Console.WriteLine("mod_pv_db.txt 生成完了");
             Console.WriteLine();
@@ -55,8 +54,7 @@ namespace ModDbMerge2
             }
             foreach (var another in dmm.Add_AnotherSong)
             {
-                outputs.Add(another.ToString());
-                //outputs.Add(another.ToString(dmm.Add_AnotherSong));
+                outputs.Add(another.ToString(appConfig.Config,dmm.Add_AnotherSong));
             }
             dmm.ToStringLengthLine(outputs);
 

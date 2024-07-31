@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace ModDbMerge2.DIVA
+﻿namespace Another_Song_Merge_Tool.DIVA
 {
     public class Song
     {
@@ -52,7 +50,7 @@ namespace ModDbMerge2.DIVA
             return ret;
         }
 
-        public string ToString(List<Song> Add_AnotherSong)
+        public string ToString(Config Config, List<Song> Add_AnotherSong)
         {
             var hoge = Add_AnotherSong.OrderBy(x => x.Pv_No);
 
@@ -64,20 +62,20 @@ namespace ModDbMerge2.DIVA
                 if (string.IsNullOrEmpty(this.Name) == false)
                 {
                     var append = "";
-                    if (Add_AnotherSong.Where(x => x.Pv_No == this.Pv_No && x.Another_No > 0).Count() > 0)
+                    if (Config.AnotherSongMark == true && Add_AnotherSong.Where(x => x.Pv_No == this.Pv_No && x.Another_No > 0).Count() > 0)
                     {
-                        append = "★";
+                        append = Config.AnotherSongMarkPrefix;
                     }
                     ret += string.Join(".", this.Pv_No, "another_song", this.Another_No, "name") + "=" + append + this.Name + "\n";
                 }
                 if (string.IsNullOrEmpty(this.Name_en) == false)
                 {
                     var append = "";
-                    if (Add_AnotherSong.Where(x => x.Pv_No == this.Pv_No && x.Another_No > 0).Count() > 0)
+                    if (Config.AnotherSongMark == true && Add_AnotherSong.Where(x => x.Pv_No == this.Pv_No && x.Another_No > 0).Count() > 0)
                     {
-                        append = "★";
+                        append = Config.AnotherSongMarkPrefix;
                     }
-                    ret += string.Join(".", this.Pv_No, "another_song", this.Another_No, "name_en") + "=" + append +this.Name_en + "\n";
+                    ret += string.Join(".", this.Pv_No, "another_song", this.Another_No, "name_en") + "=" + append + this.Name_en + "\n";
                 }
                 if (string.IsNullOrEmpty(this.Song_File_Name) == false && this.Another_No > 0)
                 {

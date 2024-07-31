@@ -1,8 +1,8 @@
-﻿namespace ModDbMerge2.DIVA
+﻿namespace Another_Song_Merge_Tool.DIVA
 {
     public class Mod
     {
-        public string Name {  get; set; }
+        public string Name { get; set; }
         public string Folder_Path { get; set; }
         public PvDb Pv_Db { get; set; }
         public int Priority { get; set; }
@@ -11,7 +11,7 @@
         public string Pv_Db_Path { get; set; }
         public string Pv_Db_Name { get; set; }
 
-        public Mod() 
+        public Mod()
         {
             this.Pv_Db = new PvDb(this.Name);
             this.Priority = -1;

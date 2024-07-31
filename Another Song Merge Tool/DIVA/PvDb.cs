@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ModDbMerge2.DIVA
+﻿namespace Another_Song_Merge_Tool.DIVA
 {
     public class PvDb
     {
@@ -142,7 +136,7 @@ namespace ModDbMerge2.DIVA
                 {
                     //Console.WriteLine(song_line.ToString());
 
-                    
+
                     if (song_line.Parameters[0] == "another_song")
                     {
                         if (song_line.Parameters.Length > 2)

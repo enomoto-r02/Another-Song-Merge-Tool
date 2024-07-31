@@ -1,4 +1,4 @@
-﻿namespace ModDbMerge2.Util
+﻿namespace Another_Song_Merge_Tool.Util
 {
     public static class FileUtil
     {

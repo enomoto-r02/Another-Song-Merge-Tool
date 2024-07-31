@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ModDbMerge2.DIVA
+﻿namespace Another_Song_Merge_Tool.DIVA
 {
     public class SongLine
     {
-        public string Pv_No {  get; set; }
+        public string Pv_No { get; set; }
         public string[] Parameters { get; set; }
-        public string Value {  get; set; }
+        public string Value { get; set; }
         public bool Is_Del_Line { get; set; }
         public int Priority { get; set; }
         public int Pv_Db_Priority { get; set; }
@@ -39,7 +33,6 @@ namespace ModDbMerge2.DIVA
         public override string ToString()
         {
             string ret = "";
-            //if (string.IsNullOrEmpty(this.Value) == false && this.Is_Del_Line == false)
             if (this.Is_Del_Line == false)
             {
                 ret += this.Pv_No + "." + string.Join(".", this.Parameters) + "=" + this.Value;
@@ -47,26 +40,5 @@ namespace ModDbMerge2.DIVA
 
             return ret;
         }
-
-        //public string ToString(List<string> addSongs)
-        //{
-        //    string ret = "";
-
-        //    if (this.Parameters.Length > 2
-        //        && this.Parameters[0] == "another_song"
-        //        && (this.Parameters[2] == "name" || this.Parameters[2] == "name_en")
-        //        && addSongs.Where(x => x == this.Pv_No).Count() > 1)
-        //    {
-        //        this.Value = "★" + this.Value;
-        //    }
-
-        //    if (string.IsNullOrEmpty(this.Value) == false && this.Is_Del_Line == false)
-        //    {
-        //        ret += this.Pv_No + "." + string.Join(".", this.Parameters) + "=" + this.Value;
-        //    }
-
-        //    return ret;
-        //}
-
     }
 }
