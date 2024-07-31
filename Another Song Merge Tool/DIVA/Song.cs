@@ -106,7 +106,7 @@ namespace Another_Song_Merge_Tool.DIVA
                 }
                 else
                 {
-                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name") + "=" + Path.GetFileName(this.Song_File_Name));
+                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name_en") + "=" + Path.GetFileName(this.Song_File_Name));
                 }
             }
             else
