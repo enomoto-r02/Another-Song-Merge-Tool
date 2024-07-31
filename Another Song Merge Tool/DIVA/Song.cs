@@ -96,10 +96,17 @@ namespace Another_Song_Merge_Tool.DIVA
                 {
                     ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name") + "=" + this.Vocal_Disp_Name);
                 }
+                else
+                {
                     ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name") + "=" + Path.GetFileName(this.Song_File_Name));
+                }
                 if (string.IsNullOrEmpty(this.Vocal_Disp_Name_En) == false)
                 {
                     ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name_en") + "=" + this.Vocal_Disp_Name_En);
+                }
+                else
+                {
+                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name") + "=" + Path.GetFileName(this.Song_File_Name));
                 }
             }
             else
