@@ -6,7 +6,7 @@ namespace Another_Song_Merge_Tool.DIVA
     {
         public string Pv_No { get; set; }
         public string Name { get; set; }
-        public string Name_en { get; set; }
+        public string Name_En { get; set; }
         public string Song_File_Name { get; set; }
 
         public List<SongLine> Lines { get; set; }
@@ -21,15 +21,15 @@ namespace Another_Song_Merge_Tool.DIVA
         {
             StringBuilder ret = new StringBuilder();
 
-            if (string.IsNullOrEmpty(this.Name) == false || string.IsNullOrEmpty(this.Name_en) == false)
+            if (string.IsNullOrEmpty(this.Name) == false || string.IsNullOrEmpty(this.Name_En) == false)
             {
                 if (string.IsNullOrEmpty(this.Name) == false)
                 {
                     ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "name") + "=" + this.Name);
                 }
-                if (string.IsNullOrEmpty(this.Name_en) == false)
+                if (string.IsNullOrEmpty(this.Name_En) == false)
                 {
-                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "name_en") + "=" + this.Name_en);
+                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "name_en") + "=" + this.Name_En);
                 }
                 if (string.IsNullOrEmpty(this.Song_File_Name) == false && this.Another_No > 0)
                 {
@@ -64,7 +64,7 @@ namespace Another_Song_Merge_Tool.DIVA
 
             StringBuilder ret = new StringBuilder();
 
-            if (string.IsNullOrEmpty(this.Name) == false || string.IsNullOrEmpty(this.Name_en) == false)
+            if (string.IsNullOrEmpty(this.Name) == false || string.IsNullOrEmpty(this.Name_En) == false)
             {
                 if (string.IsNullOrEmpty(this.Name) == false)
                 {
@@ -81,7 +81,7 @@ namespace Another_Song_Merge_Tool.DIVA
                     }
                     ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "name") + "=" + prefix + this.Name + suffix);
                 }
-                if (string.IsNullOrEmpty(this.Name_en) == false)
+                if (string.IsNullOrEmpty(this.Name_En) == false)
                 {
                     var prefix = "";
                     var suffix = "";
@@ -94,7 +94,7 @@ namespace Another_Song_Merge_Tool.DIVA
                     {
                         suffix = Config.AnotherSongMarkSuffixStr;
                     }
-                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "name_en") + "=" + prefix + this.Name_en + suffix);
+                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "name_en") + "=" + prefix + this.Name_En + suffix);
                 }
                 if (string.IsNullOrEmpty(this.Song_File_Name) == false && this.Another_No > 0)
                 {

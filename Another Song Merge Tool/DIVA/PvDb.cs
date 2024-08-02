@@ -70,7 +70,7 @@
                     }
                     if (song_line.Parameters[0] == "song_name_en")
                     {
-                        add_another.Name_en = song_line.Value;
+                        add_another.Name_En = song_line.Value;
                     }
                     if (song_line.Parameters[0] == "song_file_name")
                     {
@@ -96,7 +96,7 @@
                         }
                     }
                     if (!string.IsNullOrEmpty(add_another.Name)
-                        && !string.IsNullOrEmpty(add_another.Name_en)
+                        && !string.IsNullOrEmpty(add_another.Name_En)
                         && !string.IsNullOrEmpty(add_another.Song_File_Name)
                         && !string.IsNullOrEmpty(add_another.Vocal_Disp_Name)
                         && !string.IsNullOrEmpty(add_another.Vocal_Disp_Name_En))
@@ -158,7 +158,7 @@
                                 another_no_now++;
                             }
                             if (song_line.Parameters[2] == "name") { another.Name = song_line.Value; }
-                            else if (song_line.Parameters[2] == "name_en") { another.Name_en = song_line.Value; }
+                            else if (song_line.Parameters[2] == "name_en") { another.Name_En = song_line.Value; }
                             else if (song_line.Parameters[2] == "song_file_name") { another.Song_File_Name = song_line.Value; }
                             else if (song_line.Parameters[2] == "vocal_chara_num") { another.Vocal_Chara_Num = song_line.Value; }
                             else if (song_line.Parameters[2] == "vocal_disp_name") { another.Vocal_Disp_Name = song_line.Value; }
@@ -185,7 +185,7 @@
         private void Add_AnotherSong_Validate(List<Song> addAnotherSong, Song another, List<string> song_no_cnt)
         {
             if (!string.IsNullOrEmpty(another.Name)
-                && !string.IsNullOrEmpty(another.Name_en)
+                && !string.IsNullOrEmpty(another.Name_En)
                 && !string.IsNullOrEmpty(another.Song_File_Name))
             {
                 if (string.IsNullOrEmpty(another.Vocal_Disp_Name)) { another.Vocal_Disp_Name = Path.GetFileName(Song_File_Name); }
