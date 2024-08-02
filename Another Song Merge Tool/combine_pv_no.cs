@@ -15,7 +15,7 @@ namespace Another_Song_Merge_Tool
 
         public CombinePvNo() 
         {
-            this.FileName = "combine_pv_no.txt";
+            this.FileName = "Combine_Pv_No.txt";
             this.PvNos = new();
         }
 

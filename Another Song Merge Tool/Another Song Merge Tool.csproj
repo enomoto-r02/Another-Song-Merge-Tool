@@ -19,7 +19,7 @@
     <None Update="Another Song Merge Tool.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="combine_pv_no.txt">
+    <None Update="Combine_Pv_No.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

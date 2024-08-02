@@ -42,8 +42,8 @@ namespace Another_Song_Merge_Tool
 #if DEBUG
             System.Diagnostics.Process.Start("EXPLORER.EXE", "mod_pv_db.txt");
 #endif
-
-            Console.WriteLine("[ Complete! ]");
+            Console.WriteLine();
+            Console.WriteLine("Complete!");
             Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
         }
@@ -59,7 +59,7 @@ namespace Another_Song_Merge_Tool
             {
                 if (dmm.Add_AnotherSong.Where(x => x.Pv_No == another.Pv_No).Count() > 1)
                 {
-                    if (combine_pv_nos.Contains(another.Pv_No) == false)
+                    if (combine_pv_nos.Count > 0 && combine_pv_nos.Contains(another.Pv_No) == false)
                     {
                         continue;
                     }

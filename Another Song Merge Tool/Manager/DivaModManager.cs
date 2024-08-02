@@ -119,7 +119,7 @@ namespace Another_Song_Merge_Tool.Manager
             StringBuilder sb = new StringBuilder();
             foreach (var pv_no in this.Add_AnotherSong.GroupBy(x => x.Pv_No))
             {
-                if (combine_pv_nos.Contains(pv_no.Key) == false)
+                if (combine_pv_nos.Count > 0 && combine_pv_nos.Contains(pv_no.Key) == false)
                 {
                     continue;
                 }
