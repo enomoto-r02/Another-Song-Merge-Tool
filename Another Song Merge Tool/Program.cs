@@ -54,7 +54,10 @@ namespace Another_Song_Merge_Tool
             }
             foreach (var another in dmm.Add_AnotherSong)
             {
-                outputs.Add(another.ToString(appConfig.Config,dmm.Add_AnotherSong));
+                if (dmm.Add_AnotherSong.Where(x => x.Pv_No == another.Pv_No).Count() > 1)
+                {
+                    outputs.Add(another.ToString(appConfig.Config, dmm.Add_AnotherSong));
+                }
             }
             dmm.ToStringLengthLine(outputs);
 

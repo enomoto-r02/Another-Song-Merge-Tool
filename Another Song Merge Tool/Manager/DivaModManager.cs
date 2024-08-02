@@ -116,7 +116,10 @@ namespace Another_Song_Merge_Tool.Manager
             foreach (var pv_no in this.Add_AnotherSong.GroupBy(x => x.Pv_No))
             {
                 var cnt = this.Add_AnotherSong.Where(x => x.Pv_No == pv_no.Key).Count();
-                addLines.Add(string.Format("{0}.another_song.length={1}", pv_no.Key, cnt));
+                if (cnt > 1)
+                {
+                    addLines.Add(string.Format("{0}.another_song.length={1}", pv_no.Key, cnt));
+                }
             }
         }
 
