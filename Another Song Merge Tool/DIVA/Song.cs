@@ -68,21 +68,33 @@ namespace Another_Song_Merge_Tool.DIVA
             {
                 if (string.IsNullOrEmpty(this.Name) == false)
                 {
-                    var append = "";
-                    if (Config.AnotherSongMark == true && Add_AnotherSong.Where(x => x.Pv_No == this.Pv_No && x.Another_No > 0).Count() > 0)
+                    var prefix = "";
+                    var suffix = "";
+
+                    if (Config.AnotherSongMarkPrefix == true && Add_AnotherSong.Where(x => x.Pv_No == this.Pv_No && x.Another_No > 0).Count() > 0)
                     {
-                        append = Config.AnotherSongMarkPrefix;
+                        prefix = Config.AnotherSongMarkPrefixStr;
                     }
-                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "name") + "=" + append + this.Name);
+                    if (Config.AnotherSongMarkSuffix == true && Add_AnotherSong.Where(x => x.Pv_No == this.Pv_No && x.Another_No > 0).Count() > 0)
+                    {
+                        suffix = Config.AnotherSongMarkSuffixStr;
+                    }
+                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "name") + "=" + prefix + this.Name + suffix);
                 }
                 if (string.IsNullOrEmpty(this.Name_en) == false)
                 {
-                    var append = "";
-                    if (Config.AnotherSongMark == true && Add_AnotherSong.Where(x => x.Pv_No == this.Pv_No && x.Another_No > 0).Count() > 0)
+                    var prefix = "";
+                    var suffix = "";
+
+                    if (Config.AnotherSongMarkPrefix == true && Add_AnotherSong.Where(x => x.Pv_No == this.Pv_No && x.Another_No > 0).Count() > 0)
                     {
-                        append = Config.AnotherSongMarkPrefix;
+                        prefix = Config.AnotherSongMarkPrefixStr;
                     }
-                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "name_en") + "=" + append + this.Name_en);
+                    if (Config.AnotherSongMarkSuffix == true && Add_AnotherSong.Where(x => x.Pv_No == this.Pv_No && x.Another_No > 0).Count() > 0)
+                    {
+                        suffix = Config.AnotherSongMarkSuffixStr;
+                    }
+                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "name_en") + "=" + prefix + this.Name_en + suffix);
                 }
                 if (string.IsNullOrEmpty(this.Song_File_Name) == false && this.Another_No > 0)
                 {
