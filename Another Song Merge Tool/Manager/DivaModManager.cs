@@ -97,24 +97,32 @@ namespace Another_Song_Merge_Tool.Manager
             }
         }
 
-        public string ToStringLengthLine()
+        public string ToStringMods()
         {
-            StringBuilder sb = new StringBuilder();
-            foreach (var pv_no in this.Add_AnotherSong.GroupBy(x => x.Pv_No))
-            {
-                var cnt = this.Add_AnotherSong.Where(x => x.Pv_No == pv_no.Key).Count();
-                sb.AppendLine(string.Format("{0}.another_song.length={1}", pv_no.Key, cnt));
-            }
+            StringBuilder sb = new();
 
+            if (this.Mods.Count > 0)
+            {
+                sb.AppendLine("[ Load Mods Folder ]");
+
+                foreach (var item in this.Mods)
+                {
+                    sb.AppendLine(" - " + item.Name);
+                }
+            }
 
             return sb.ToString();
         }
 
-        public void ToStringLengthLine(List<string> addLines)
+        public void ToStringLengthLine(List<string> addLines, List<string> combine_pv_nos)
         {
             StringBuilder sb = new StringBuilder();
             foreach (var pv_no in this.Add_AnotherSong.GroupBy(x => x.Pv_No))
             {
+                if (combine_pv_nos.Contains(pv_no.Key) == false)
+                {
+                    continue;
+                }
                 var cnt = this.Add_AnotherSong.Where(x => x.Pv_No == pv_no.Key).Count();
                 if (cnt > 1)
                 {

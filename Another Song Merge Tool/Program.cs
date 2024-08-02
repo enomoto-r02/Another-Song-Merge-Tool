@@ -2,6 +2,7 @@
 using Another_Song_Merge_Tool.Manager;
 using Another_Song_Merge_Tool.Util;
 using NaturalSort.Extension;
+using System;
 using System.Text;
 
 namespace Another_Song_Merge_Tool
@@ -15,37 +16,39 @@ namespace Another_Song_Merge_Tool
             var new_file_name = FileUtil.Backup("mod_pv_db.txt");
             if (string.IsNullOrEmpty(new_file_name) == false)
             {
-                Console.WriteLine("{0} 退避完了", new_file_name);
+                Console.WriteLine("[ Backup ]");
+                Console.WriteLine(" - {0} Complete.", new_file_name);
                 Console.WriteLine();
             }
 
+            CombinePvNo combine_pvno = new CombinePvNo();
+            combine_pvno.Load();
+            Console.WriteLine(combine_pvno.ToString());
+
             DivaModManager dmm = new(appConfig);
+            Console.WriteLine(dmm.ToStringMods());
 
-            foreach (var item in dmm.Mods)
-            {
-                Console.WriteLine(" - " + item.Name);
-            }
-            Console.WriteLine();
-
-            Console.WriteLine("mod_pv_db.txt 生成中...");
+            Console.WriteLine("[ Generating ]");
+            Console.WriteLine(" - mod_pv_db.txt Generating...");
 
             dmm.ReadPvDb();
 
             Mod merge_mod = dmm.Composition();
 
-            Output(dmm, merge_mod);
+            Output(dmm, merge_mod, combine_pvno.PvNos);
 
-            Console.WriteLine("mod_pv_db.txt 生成完了");
+            Console.WriteLine(" - mod_pv_db.txt Generation Complete.");
             Console.WriteLine();
 #if DEBUG
             System.Diagnostics.Process.Start("EXPLORER.EXE", "mod_pv_db.txt");
 #endif
 
-            Console.WriteLine("いずれかのキーを押すと終了します。");
+            Console.WriteLine("[ Complete! ]");
+            Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
         }
 
-        private static void Output(DivaModManager dmm, Mod merge_mod)
+        private static void Output(DivaModManager dmm, Mod merge_mod, List<string> combine_pv_nos)
         {
             List<string> outputs = new();
             foreach (var song_line in merge_mod.Pv_Db.Song_Lines)
@@ -56,10 +59,14 @@ namespace Another_Song_Merge_Tool
             {
                 if (dmm.Add_AnotherSong.Where(x => x.Pv_No == another.Pv_No).Count() > 1)
                 {
+                    if (combine_pv_nos.Contains(another.Pv_No) == false)
+                    {
+                        continue;
+                    }
                     outputs.Add(another.ToString(appConfig.Config, dmm.Add_AnotherSong));
                 }
             }
-            dmm.ToStringLengthLine(outputs);
+            dmm.ToStringLengthLine(outputs, combine_pv_nos);
 
             outputs = outputs.OrderBy(x => x.ToString(), StringComparison.OrdinalIgnoreCase.WithNaturalSort()).ToList();
 
