@@ -1,4 +1,6 @@
-﻿namespace Another_Song_Merge_Tool.DIVA
+﻿using System.Linq;
+
+namespace Another_Song_Merge_Tool.DIVA
 {
     public class SongLine
     {
@@ -15,7 +17,7 @@
             var param = line.Split("=");
             if (param.Length > 1)
             {
-                this.Value = param[1];
+                this.Value = String.Join("=", param.Where((item, index) => index != 0));
             }
             else
             {
