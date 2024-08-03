@@ -60,12 +60,10 @@
                     }
                     if (song_line.Parameters[0] == "another_song")
                     {
-                        base_song.Is_Another_Song = true;
                         song_line.Is_Del_Line = true;
                     }
                     if (song_line.Parameters[0] == "ex_song")
                     {
-                        base_song.Is_ExSong = true;
                         song_line.Is_Del_Line = true;
                     }
                     else if (song_line.Parameters[0] == "song_name")
@@ -161,54 +159,51 @@
             // ex_song楽曲をanother_songに設定
             foreach (Song base_song in Base_Songs_Data)
             {
-                if (base_song.Is_ExSong)
+                Song another = new();
+                another.Pv_No = base_song.Pv_No;
+                another.Name = base_song.Name;
+                another.Name_En = base_song.Name_En;
+
+                another.Another_No = song_no_cnt.Where(x => x == another.Pv_No).Count();
+                var another_no_now = 0;
+                var another_no_next = another_no_now;
+
+                foreach (var line in base_song.Lines)
                 {
-                    Song another = new();
-                    another.Pv_No = base_song.Pv_No;
-                    another.Name = base_song.Name;
-                    another.Name_En = base_song.Name_En;
-
-                    another.Another_No = song_no_cnt.Where(x => x == another.Pv_No).Count();
-                    var another_no_now = 0;
-                    var another_no_next = another_no_now;
-
-                    foreach (var line in base_song.Lines)
+                    if (line.Parameters[0] == "ex_song")
                     {
-                        if (line.Parameters[0] == "ex_song")
+                        if (line.Parameters.Length > 2)
                         {
-                            if (line.Parameters.Length > 2)
-                            {
-                                another_no_next = int.Parse(line.Parameters[1]);
+                            another_no_next = int.Parse(line.Parameters[1]);
 
-                                // 次のNoに変わった
-                                if (another_no_now != another_no_next)
-                                {
-                                    this.Add_AnotherSong_Validate(addAnotherSong, another, song_no_cnt);
-
-                                    another = new();
-                                    another.Pv_No = base_song.Pv_No;
-                                    another.Another_No = song_no_cnt.Where(x => x == another.Pv_No).Count();
-                                    another.Name = base_song.Name;
-                                    another.Name_En = base_song.Name_En;
-
-                                    // 最初の楽曲分減算
-                                    another_no_now = song_no_cnt.Where(x => x == another.Pv_No).Count()-1;
-                                    another_no_next = another_no_now;
-                                }
-                                if (line.Parameters[2] == "chara")
-                                {
-                                    another.Vocal_Disp_Name = line.Value;
-                                    another.Vocal_Disp_Name_En = line.Value;
-                                }
-                                else if (line.Parameters[2] == "file")
-                                {
-                                    another.Song_File_Name = line.Value;
-                                }
-                            }
-                            else if (line.Parameters[1] == "length")
+                            // 次のNoに変わった
+                            if (another_no_now != another_no_next)
                             {
                                 this.Add_AnotherSong_Validate(addAnotherSong, another, song_no_cnt);
+
+                                another = new();
+                                another.Pv_No = base_song.Pv_No;
+                                another.Another_No = song_no_cnt.Where(x => x == another.Pv_No).Count();
+                                another.Name = base_song.Name;
+                                another.Name_En = base_song.Name_En;
+
+                                // 最初の楽曲分減算
+                                another_no_now = song_no_cnt.Where(x => x == another.Pv_No).Count()-1;
+                                another_no_next = another_no_now;
                             }
+                            if (line.Parameters[2] == "chara")
+                            {
+                                another.Vocal_Disp_Name = line.Value;
+                                another.Vocal_Disp_Name_En = line.Value;
+                            }
+                            else if (line.Parameters[2] == "file")
+                            {
+                                another.Song_File_Name = line.Value;
+                            }
+                        }
+                        else if (line.Parameters[1] == "length")
+                        {
+                            this.Add_AnotherSong_Validate(addAnotherSong, another, song_no_cnt);
                         }
                     }
                 }

@@ -17,56 +17,9 @@ namespace Another_Song_Merge_Tool.DIVA
         public string Vocal_Disp_Name { get; set; }
         public string Vocal_Disp_Name_En { get; set; }
 
-        public bool Is_ExSong { get; set; }
-        public bool Is_Another_Song { get; set; }
-        public bool Is_SkipExSong { get; set; }
-
         public Song()
         {
             this.Lines = [];
-            this.Is_ExSong = false;
-            this.Is_Another_Song = false;
-            this.Is_SkipExSong = false;
-        }
-
-        public override string ToString()
-        {
-            StringBuilder ret = new StringBuilder();
-
-            if (string.IsNullOrEmpty(this.Name) == false || string.IsNullOrEmpty(this.Name_En) == false)
-            {
-                if (string.IsNullOrEmpty(this.Name) == false)
-                {
-                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "name") + "=" + this.Name);
-                }
-                if (string.IsNullOrEmpty(this.Name_En) == false)
-                {
-                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "name_en") + "=" + this.Name_En);
-                }
-                if (string.IsNullOrEmpty(this.Song_File_Name) == false && this.Another_No > 0)
-                {
-                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "song_file_name") + "=" + this.Song_File_Name);
-                }
-                if (string.IsNullOrEmpty(this.Vocal_Chara_Num) == false && this.Another_No > 0)
-                {
-                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_chara_num") + "=" + this.Vocal_Chara_Num);
-                }
-                if (string.IsNullOrEmpty(this.Vocal_Disp_Name) == false)
-                {
-                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name") + "=" + this.Vocal_Disp_Name);
-                }
-                if (string.IsNullOrEmpty(this.Vocal_Disp_Name_En) == false)
-                {
-                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name_en") + "=" + this.Vocal_Disp_Name_En);
-                }
-            }
-            else
-            {
-                //return string.Join(".", this.Pv_No, "another_song", "length") + "=" + this.length + "\n";
-                return "Song#ToString() : Length";
-            }
-
-            return ret.ToString();
         }
 
         public string ToString(Config Config, List<Song> Add_AnotherSong)
@@ -83,11 +36,11 @@ namespace Another_Song_Merge_Tool.DIVA
                     var prefix = "";
                     var suffix = "";
 
-                    if (Config.AnotherSongMarkPrefix == true && Add_AnotherSong.Where(x => x.Pv_No == this.Pv_No && x.Another_No > 0).Count() > 0)
+                    if (Config.AnotherSongMarkPrefix == true && Add_AnotherSong.Where(x => x.Pv_No == this.Pv_No).Count() > 0)
                     {
                         prefix = Config.AnotherSongMarkPrefixStr;
                     }
-                    if (Config.AnotherSongMarkSuffix == true && Add_AnotherSong.Where(x => x.Pv_No == this.Pv_No && x.Another_No > 0).Count() > 0)
+                    if (Config.AnotherSongMarkSuffix == true && Add_AnotherSong.Where(x => x.Pv_No == this.Pv_No).Count() > 0)
                     {
                         suffix = Config.AnotherSongMarkSuffixStr;
                     }
@@ -98,11 +51,11 @@ namespace Another_Song_Merge_Tool.DIVA
                     var prefix = "";
                     var suffix = "";
 
-                    if (Config.AnotherSongMarkPrefix == true && Add_AnotherSong.Where(x => x.Pv_No == this.Pv_No && x.Another_No > 0).Count() > 0)
+                    if (Config.AnotherSongMarkPrefix == true && Add_AnotherSong.Where(x => x.Pv_No == this.Pv_No).Count() > 0)
                     {
                         prefix = Config.AnotherSongMarkPrefixStr;
                     }
-                    if (Config.AnotherSongMarkSuffix == true && Add_AnotherSong.Where(x => x.Pv_No == this.Pv_No && x.Another_No > 0).Count() > 0)
+                    if (Config.AnotherSongMarkSuffix == true && Add_AnotherSong.Where(x => x.Pv_No == this.Pv_No).Count() > 0)
                     {
                         suffix = Config.AnotherSongMarkSuffixStr;
                     }
