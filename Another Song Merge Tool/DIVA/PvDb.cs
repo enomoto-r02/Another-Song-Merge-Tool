@@ -52,7 +52,7 @@
                         another_song.Is_ExSong = true;
                     }
 
-                    another_song.Lines.Add(song_line);
+                    base_song.Lines.Add(song_line);
                 }
 
                 this.Songs.Add(another_song);
