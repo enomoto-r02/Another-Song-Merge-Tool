@@ -48,10 +48,11 @@
                     }
 
                     // 別の曲になった
-                    if (song_line.Pv_No != base_song.Pv_No)
+                    if (string.IsNullOrEmpty(base_song.Pv_No) == false && song_line.Pv_No != base_song.Pv_No)
                     {
                         this.Base_Songs_Data.Add(base_song);
                         base_song = new Song();
+                        base_song.Pv_No = song_line.Pv_No;
                     }
 
                     if (string.IsNullOrEmpty(base_song.Pv_No)) { 
@@ -78,6 +79,8 @@
 
                     base_song.Lines.Add(song_line);
                 }
+
+                Base_Songs_Data.Add(base_song);
             }
 
             // オリジナル楽曲をanother_songの0番目に設定
