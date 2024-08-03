@@ -135,30 +135,35 @@ namespace Another_Song_Merge_Tool.Manager
         {
             Mod composition_mod = new Mod();
 
+            string song_pv_no = "";
             foreach (var mod in Mods)
             {
-                string song_pv_no = "";
-                foreach (var song_data in mod.Pv_Db.Song_Lines)
+                foreach (var song in mod.Pv_Db.Songs)
                 {
-                    // 既に読み込み済みの楽曲
-                    if (Add_Song.Contains(song_data.Pv_No))
+                    foreach (var song_data in song.Lines)
                     {
-                        // 削除
-                        song_data.Is_Del_Line = true;
-                    }
-                    composition_mod.Pv_Db.Song_Lines.Add(song_data);
+                        // 既に読み込み済みの楽曲
+                        if (Add_Song.Contains(song_data.Pv_No))
+                        {
+                            // 削除
+                            song_data.Is_Del_Line = true;
+                        }
+                        Song composition_mod_song = new Song();
+                        composition_mod.Pv_Db.Songs.Add(composition_mod_song);
+                        composition_mod.Pv_Db.Songs[0].Lines.Add(song_data);
 
-                    if (string.IsNullOrEmpty(song_pv_no))
-                    {
-                        song_pv_no = song_data.Pv_No;
+                        if (string.IsNullOrEmpty(song_pv_no))
+                        {
+                            song_pv_no = song_data.Pv_No;
+                        }
                     }
                 }
+            }
 
-                // 読み込み済楽曲として設定
-                if (string.IsNullOrEmpty(song_pv_no) == false)
-                {
-                    Add_Song.Add(song_pv_no);
-                }
+            // 読み込み済楽曲として設定
+            if (string.IsNullOrEmpty(song_pv_no) == false)
+            {
+                Add_Song.Add(song_pv_no);
             }
 
             return composition_mod;
@@ -167,30 +172,36 @@ namespace Another_Song_Merge_Tool.Manager
         public Mod Composition()
         {
             Mod composition_mod = new Mod();
+            Song composition_song = new();
 
             foreach (var mod in Mods)
             {
-                foreach (var pv_no in mod.Pv_Db.Song_Lines.GroupBy(x => x.Pv_No))
-                {
-                    if (string.IsNullOrEmpty(pv_no.Key))
+                foreach(var song in mod.Pv_Db.Songs)
+                { 
+                    foreach (var pv_no in song.Lines.GroupBy(x => x.Pv_No))
                     {
-                        continue;
-                    }
-                    foreach (var song_line in mod.Pv_Db.Song_Lines.Where(x => x.Pv_No == pv_no.Key))
-                    {
-                        // 既に読み込み済みの楽曲
-                        if (Add_Song.Contains(song_line.Pv_No))
+                        if (string.IsNullOrEmpty(pv_no.Key))
                         {
-                            // 削除
-                            song_line.Is_Del_Line = true;
+                            continue;
                         }
-                        composition_mod.Pv_Db.Song_Lines.Add(song_line);
-                    }
+                        foreach (var song_line in song.Lines.Where(x => x.Pv_No == pv_no.Key))
+                        {
+                            // 既に読み込み済みの楽曲
+                            if (Add_Song.Contains(song_line.Pv_No))
+                            {
+                                // 削除
+                                song_line.Is_Del_Line = true;
+                            }
+                            // composition_mod.Pv_Db.Song_Lines.Add(song_line);
+                            composition_song.Lines.Add(song_line);
+                        }
 
-                    // 読み込み済楽曲として設定
-                    Add_Song.Add(pv_no.Key);
+                        // 読み込み済楽曲として設定
+                        Add_Song.Add(pv_no.Key);
+                    }
                 }
             }
+            composition_mod.Pv_Db.Songs.Add(composition_song);
 
             return composition_mod;
         }

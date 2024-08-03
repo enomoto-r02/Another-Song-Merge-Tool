@@ -1,4 +1,6 @@
 # Only the songs of the pv_no listed in this file will be merged.
+# (If you don't specify a single pv_id, all songs will be merged.)
 
-# Nostalogic
+# (example)
+#pv_001
 #pv_621

@@ -11,6 +11,12 @@ namespace Another_Song_Merge_Tool
     {
         static readonly AppConfig appConfig = AppConfig.Get();
 
+        // ex_songのマージ対象外とするpv_id   
+        public static readonly List<string> SKIP_EXSONG_MERGE_LIST = new(){
+            "pv_262",   // ピアノ×フォルテ×スキャンダル
+            "pv_621",   // Nostalogic
+        };
+
         static void Main(string[] args)
         {
             var new_file_name = FileUtil.Backup("mod_pv_db.txt");
@@ -51,9 +57,12 @@ namespace Another_Song_Merge_Tool
         private static void Output(DivaModManager dmm, Mod merge_mod, List<string> combine_pv_nos)
         {
             List<string> outputs = new();
-            foreach (var song_line in merge_mod.Pv_Db.Song_Lines)
+            foreach (var song in merge_mod.Pv_Db.Songs)
             {
-                outputs.Add(song_line.ToString());
+                foreach (var song_line in song.Lines)
+                {
+                    outputs.Add(song_line.ToString());
+                }
             }
             foreach (var another in dmm.Add_AnotherSong)
             {

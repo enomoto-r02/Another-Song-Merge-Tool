@@ -17,6 +17,16 @@ namespace Another_Song_Merge_Tool.DIVA
         public string Vocal_Disp_Name { get; set; }
         public string Vocal_Disp_Name_En { get; set; }
 
+        public bool Is_ExSong { get; set; }
+        public bool Is_SkipExSong { get; set; }
+
+        public Song()
+        {
+            this.Is_ExSong = false;
+            this.Is_SkipExSong = false;
+            this.Lines = [];
+        }
+
         public override string ToString()
         {
             StringBuilder ret = new StringBuilder();
