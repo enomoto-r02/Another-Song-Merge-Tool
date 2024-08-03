@@ -37,7 +37,7 @@ namespace Another_Song_Merge_Tool
             Console.WriteLine("[ Generating ]");
             Console.WriteLine(" - mod_pv_db.txt Generating...");
 
-            dmm.ReadPvDb();
+            dmm.LoadPvDb();
 
             Mod merge_mod = dmm.Composition();
 
@@ -50,6 +50,7 @@ namespace Another_Song_Merge_Tool
 #endif
             Console.WriteLine();
             Console.WriteLine("Complete!");
+            Console.WriteLine();
             Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
         }

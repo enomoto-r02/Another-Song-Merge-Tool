@@ -81,14 +81,14 @@ namespace Another_Song_Merge_Tool.Manager
             this.Mods = mods;
         }
 
-        public void ReadPvDb()
+        public void LoadPvDb()
         {
             var now_pv_db_priority = 0;
             for (var i = 0; i < Mods.Count; i++)
             {
                 if (Mods[i].Enabled)
                 {
-                    Mods[i].ReadPvDb(this.Add_AnotherSong, this.Song_no_cnt, now_pv_db_priority);
+                    Mods[i].LoadPvDb(this.Add_AnotherSong, this.Song_no_cnt, now_pv_db_priority);
                     if (Mods[i].Pv_Db_Priority >= 0)
                     {
                         now_pv_db_priority++;
@@ -176,7 +176,7 @@ namespace Another_Song_Merge_Tool.Manager
 
             foreach (var mod in Mods)
             {
-                foreach(var song in mod.Pv_Db.Songs)
+                foreach(var song in mod.Pv_Db.Base_Songs_Data)
                 { 
                     foreach (var pv_no in song.Lines.GroupBy(x => x.Pv_No))
                     {

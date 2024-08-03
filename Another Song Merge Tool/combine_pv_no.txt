@@ -1,4 +1,5 @@
 # Only the songs of the pv_no listed in this file will be merged.
+# For example, use it if you're creating a cover mod for a specific song.
 # (If you don't specify a single pv_id, all songs will be merged.)
 
 # (example)

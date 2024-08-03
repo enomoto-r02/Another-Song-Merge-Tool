@@ -47,7 +47,7 @@
             }
         }
 
-        public void ReadPvDb(List<Song> addAnotherSong, List<string> song_no_cnt, int now_pv_db_priority)
+        public void LoadPvDb(List<Song> addAnotherSong, List<string> song_no_cnt, int now_pv_db_priority)
         {
             this.Pv_Db = new PvDb(this.Name, this.Pv_Db_Name, now_pv_db_priority);
             this.Pv_Db.Load(addAnotherSong, song_no_cnt, this.Priority, this.Pv_Db_Path);

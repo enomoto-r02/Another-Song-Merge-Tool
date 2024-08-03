@@ -18,13 +18,15 @@ namespace Another_Song_Merge_Tool.DIVA
         public string Vocal_Disp_Name_En { get; set; }
 
         public bool Is_ExSong { get; set; }
+        public bool Is_Another_Song { get; set; }
         public bool Is_SkipExSong { get; set; }
 
         public Song()
         {
-            this.Is_ExSong = false;
-            this.Is_SkipExSong = false;
             this.Lines = [];
+            this.Is_ExSong = false;
+            this.Is_Another_Song = false;
+            this.Is_SkipExSong = false;
         }
 
         public override string ToString()
