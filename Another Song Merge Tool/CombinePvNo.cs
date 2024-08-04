@@ -39,11 +39,11 @@ namespace Another_Song_Merge_Tool
 
             if (this.PvNos.Count > 0)
             {
-                sb.AppendLine("[ combine_pv_no.txt ]");
+                sb.AppendLine("[Another Song Merge Tool] combine_pv_no.txt");
 
                 foreach (var pv_nos in this.PvNos)
                 {
-                    sb.AppendLine(" - " + pv_nos.ToString());
+                    sb.AppendLine("[Another Song Merge Tool] - " + pv_nos.ToString());
                 }
             }
 

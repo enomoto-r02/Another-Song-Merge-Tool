@@ -103,11 +103,11 @@ namespace Another_Song_Merge_Tool.Manager
 
             if (this.Mods.Count > 0)
             {
-                sb.AppendLine("[ Load Mods Folder ]");
+                sb.AppendLine("[Another Song Merge Tool] Load Mods Folder");
 
                 foreach (var item in this.Mods)
                 {
-                    sb.AppendLine(" - " + item.Name);
+                    sb.AppendLine("[Another Song Merge Tool] - " + item.Name);
                 }
             }
 

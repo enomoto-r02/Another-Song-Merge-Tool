@@ -2,7 +2,7 @@
 {
     public class Config
     {
-
+        public bool BackupPvDb { get; set; }
         public bool AnotherSongMarkPrefix { get; set; }
         public string AnotherSongMarkPrefixStr { get; set; }
         public bool AnotherSongMarkSuffix { get; set; }

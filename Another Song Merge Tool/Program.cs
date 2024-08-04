@@ -11,31 +11,32 @@ namespace Another_Song_Merge_Tool
     {
         static readonly AppConfig appConfig = AppConfig.Get();
 
-        // ex_songのマージ対象外とするpv_id   
-        public static readonly List<string> SKIP_EXSONG_MERGE_LIST = new(){
-            "pv_262",   // ピアノ×フォルテ×スキャンダル
-            "pv_621",   // Nostalogic
-        };
-
         static void Main(string[] args)
         {
-            var new_file_name = FileUtil.Backup("mod_pv_db.txt");
-            if (string.IsNullOrEmpty(new_file_name) == false)
+            Console.WriteLine("[Another Song Merge Tool] Tool Start.");
+            FileUtil.CreateFolder("rom");
+
+            if (appConfig.Config.BackupPvDb)
             {
-                Console.WriteLine("[ Backup ]");
-                Console.WriteLine(" - {0} Complete.", new_file_name);
-                Console.WriteLine();
+                var new_file_name = FileUtil.Backup("./rom/mod_pv_db.txt");
+                if (File.Exists(new_file_name) == true)
+                {
+                    Console.WriteLine("[Another Song Merge Tool] Backup");
+                    Console.WriteLine("[Another Song Merge Tool] {0} Complete.", Path.GetFileName(new_file_name));
+                    //Console.WriteLine();
+                }
             }
 
             CombinePvNo combine_pvno = new CombinePvNo();
             combine_pvno.Load();
-            Console.WriteLine(combine_pvno.ToString());
+            if (string.IsNullOrEmpty(combine_pvno.ToString())) {
+                Console.WriteLine("[Another Song Merge Tool] " + combine_pvno.ToString());
+            }
 
             DivaModManager dmm = new(appConfig);
             Console.WriteLine(dmm.ToStringMods());
 
-            Console.WriteLine("[ Generating ]");
-            Console.WriteLine(" - mod_pv_db.txt Generating...");
+            Console.WriteLine("[Another Song Merge Tool] mod_pv_db.txt Generating...");
 
             dmm.LoadPvDb();
 
@@ -43,16 +44,12 @@ namespace Another_Song_Merge_Tool
 
             Output(dmm, merge_mod, combine_pvno.PvNos);
 
-            Console.WriteLine(" - mod_pv_db.txt Generation Complete.");
-            Console.WriteLine();
-#if DEBUG
-            System.Diagnostics.Process.Start("EXPLORER.EXE", "mod_pv_db.txt");
-#endif
-            Console.WriteLine();
-            Console.WriteLine("Complete!");
-            Console.WriteLine();
-            Console.WriteLine("Press any key to exit.");
-            Console.ReadKey();
+            Console.WriteLine("[Another Song Merge Tool] mod_pv_db.txt Generation Complete.");
+            //Console.WriteLine();
+            Console.WriteLine("[Another Song Merge Tool] Tool End.");
+            //Console.WriteLine();
+            //Console.WriteLine("Press any key to exit.");
+            //Console.ReadKey();
         }
 
         private static void Output(DivaModManager dmm, Mod merge_mod, List<string> combine_pv_nos)
@@ -89,7 +86,7 @@ namespace Another_Song_Merge_Tool
                 }
             }
 
-            FileUtil.WriteFile_UTF_8_NO_BOM(sb.ToString(), "mod_pv_db.txt", false);
+            FileUtil.WriteFile_UTF_8_NO_BOM(sb.ToString(), "./rom/mod_pv_db.txt", false);
         }
     }
 }

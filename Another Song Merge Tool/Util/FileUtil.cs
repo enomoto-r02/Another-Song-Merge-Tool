@@ -56,7 +56,7 @@ namespace Another_Song_Merge_Tool.Util
             var new_file_name = "";
             if (File.Exists(file_name))
             {
-                new_file_name = Path.GetFileNameWithoutExtension(file_name) + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + Path.GetExtension(file_name);
+                new_file_name = "./rom/" + Path.GetFileNameWithoutExtension(file_name) + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + Path.GetExtension(file_name);
                 File.Move(file_name, new_file_name);
             }
 
