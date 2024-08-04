@@ -7,5 +7,10 @@
         public string AnotherSongMarkPrefixStr { get; set; }
         public bool AnotherSongMarkSuffix { get; set; }
         public string AnotherSongMarkSuffixStr { get; set; }
+
+        public Config() 
+        {
+            this.BackupPvDb = false;
+        }
     }
 }

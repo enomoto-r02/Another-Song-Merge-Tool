@@ -21,8 +21,16 @@ namespace Another_Song_Merge_Tool
                 var new_file_name = FileUtil.Backup("./rom/mod_pv_db.txt");
                 if (File.Exists(new_file_name) == true)
                 {
-                    Console.WriteLine("[Another Song Merge Tool] Backup");
-                    Console.WriteLine("[Another Song Merge Tool] {0} Complete.", Path.GetFileName(new_file_name));
+                    Console.WriteLine("[Another Song Merge Tool] {0} Backup Complete.", Path.GetFileName(new_file_name));
+                    //Console.WriteLine();
+                }
+            }
+            else
+            {
+                var del_file_name = FileUtil.Delete("./rom/mod_pv_db.txt");
+                if (File.Exists(del_file_name) == false)
+                {
+                    Console.WriteLine("[Another Song Merge Tool] {0} Delete Complete.", Path.GetFileName(del_file_name));
                     //Console.WriteLine();
                 }
             }

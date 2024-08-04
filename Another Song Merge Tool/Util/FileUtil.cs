@@ -62,5 +62,17 @@ namespace Another_Song_Merge_Tool.Util
 
             return new_file_name;
         }
+
+        public static string Delete(string file_name)
+        {
+            var del_file_name = "";
+            if (File.Exists(file_name))
+            {
+                File.Delete(file_name);
+                del_file_name = file_name;
+            }
+
+            return del_file_name;
+        }
     }
 }
