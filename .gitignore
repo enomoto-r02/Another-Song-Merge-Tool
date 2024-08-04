@@ -362,3 +362,6 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /Another Song Merge Tool/net8.0 - ショートカット.lnk
+/Another Song Merge Tool DLL/Another Song Merge Tool DLL.vcxproj
+/Another Song Merge Tool DLL/Another Song Merge Tool DLL.vcxproj.filters
+/Another Song Merge Tool DLL/dllmain.cpp
