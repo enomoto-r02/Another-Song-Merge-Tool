@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Another_Song_Merge_Tool.Util;
+using System.Text;
 
 namespace Another_Song_Merge_Tool.DIVA
 {
@@ -16,10 +17,12 @@ namespace Another_Song_Merge_Tool.DIVA
         public string Vocal_Chara_Num { get; set; }
         public string Vocal_Disp_Name { get; set; }
         public string Vocal_Disp_Name_En { get; set; }
+        public List<Performer> Performer { get; set; }
 
         public Song()
         {
             this.Lines = [];
+            this.Performer = [];
         }
 
         public string ToString(Config Config, List<Song> Add_AnotherSong)
@@ -71,7 +74,17 @@ namespace Another_Song_Merge_Tool.DIVA
                 }
                 if (string.IsNullOrEmpty(this.Vocal_Disp_Name) == false)
                 {
-                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name") + "=" + this.Vocal_Disp_Name);
+                    var view = DivaUtil.GetChara(Vocal_Disp_Name);
+                    if (string.IsNullOrEmpty(view))
+                    {
+                        view = this.Vocal_Disp_Name;
+                        if (string.IsNullOrEmpty(view))
+                        {
+                            view = "none";
+                        }
+                    }
+                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name") + "=" + view);
+                    //ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name") + "=" + this.Vocal_Disp_Name);
                 }
                 else
                 {
@@ -79,7 +92,17 @@ namespace Another_Song_Merge_Tool.DIVA
                 }
                 if (string.IsNullOrEmpty(this.Vocal_Disp_Name_En) == false)
                 {
-                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name_en") + "=" + this.Vocal_Disp_Name_En);
+                    var view = DivaUtil.GetCharaEn(Vocal_Disp_Name_En);
+                    if (string.IsNullOrEmpty(view))
+                    {
+                        view = this.Vocal_Disp_Name;
+                        if (string.IsNullOrEmpty(view))
+                        {
+                            view = "none";
+                        }
+                    }
+                    ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name_en") + "=" + view);
+                    //ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name_en") + "=" + this.Vocal_Disp_Name_En);
                 }
                 else
                 {
@@ -93,6 +116,42 @@ namespace Another_Song_Merge_Tool.DIVA
             }
 
             return ret.ToString();
+        }
+
+        public string GetPerformerChara()
+        {
+            StringBuilder sb = new();
+
+            for (var i = 0; i < this.Performer.Count; i++)
+            {
+                if (i > 0)
+                {
+                    sb.Append("/");
+                }
+                Performer p = this.Performer[i];
+                //sb.Append(p.Chara);
+                sb.Append(p.ViewChara());
+            }
+
+            return sb.ToString();
+        }
+
+        public string GetPerformerCharaEn()
+        {
+            StringBuilder sb = new();
+
+            for (var i = 0; i < this.Performer.Count; i++)
+            {
+                if (i > 0)
+                {
+                    sb.Append("/");
+                }
+                Performer p = this.Performer[i];
+                //sb.Append(p.Chara);
+                sb.Append(p.ViewCharaEn());
+            }
+
+            return sb.ToString();
         }
     }
 }

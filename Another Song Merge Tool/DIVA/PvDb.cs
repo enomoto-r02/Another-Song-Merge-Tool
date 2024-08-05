@@ -32,6 +32,7 @@
             if (string.IsNullOrEmpty(path) == false && File.Exists(path) == true)
             {
                 Song base_song = new Song();
+                Performer base_performer = new Performer();
 
                 foreach (var line in File.ReadAllLines(path))
                 {
@@ -50,9 +51,11 @@
                     // 別の曲になった
                     if (string.IsNullOrEmpty(base_song.Pv_No) == false && song_line.Pv_No != base_song.Pv_No)
                     {
+                        if (string.IsNullOrEmpty(base_performer.Chara) == false) base_song.Performer.Add(base_performer);
                         this.Base_Songs_Data.Add(base_song);
                         base_song = new Song();
                         base_song.Pv_No = song_line.Pv_No;
+                        base_performer = new Performer();
                     }
 
                     if (string.IsNullOrEmpty(base_song.Pv_No)) { 
@@ -74,10 +77,38 @@
                     {
                         base_song.Name_En = song_line.Value;
                     }
+                    else if (song_line.Parameters[0] == "performer")
+                    {
+                        if (song_line.Parameters.Length > 2)
+                        {
+                            // 別のキャラになった
+                            if (base_performer.Index != -1 && base_performer.Index != int.Parse(song_line.Parameters[1]))
+                            {
+                                if (base_performer.Type == "VOCAL") base_song.Performer.Add(base_performer);
+                                base_performer = new();
+                            }
+
+                            if(song_line.Parameters[2] == "chara")
+                            {
+                                base_performer.Chara = song_line.Value;
+                                base_performer.Index = int.Parse(song_line.Parameters[1]);
+                            }
+                            else if (song_line.Parameters[2] == "type")
+                            {
+                                base_performer.Type = song_line.Value;
+                            }
+                        }
+                        else
+                        {
+                            if (base_performer.Type == "VOCAL") base_song.Performer.Add(base_performer); 
+                            base_performer = new();
+                        }
+                    }
 
                     base_song.Lines.Add(song_line);
                 }
 
+                if (string.IsNullOrEmpty(base_performer.Chara) == false) base_song.Performer.Add(base_performer);
                 Base_Songs_Data.Add(base_song);
             }
 
@@ -87,6 +118,7 @@
                 foreach (var song_pv_grp in song.Lines.GroupBy(x => x.Pv_No))
                 {
                     Song add_another = new();
+                    Performer base_performer = new Performer();
                     add_another.Pv_No = song_pv_grp.Key;
 
                     add_another.Another_No = song_no_cnt.Where(x => x == add_another.Pv_No).Count();
@@ -141,8 +173,10 @@
                         {
                             //if (string.IsNullOrEmpty(add_another.Vocal_Disp_Name)) { add_another.Vocal_Disp_Name = "オリジナル"; }
                             //if (string.IsNullOrEmpty(add_another.Vocal_Disp_Name_En)) { add_another.Vocal_Disp_Name_En = "Original"; }
-                            add_another.Vocal_Disp_Name = "オリジナル";
-                            add_another.Vocal_Disp_Name_En = "Original";
+                            //add_another.Vocal_Disp_Name = "オリジナル";
+                            //add_another.Vocal_Disp_Name_En = "Original";
+                            add_another.Vocal_Disp_Name = song.GetPerformerChara();
+                            add_another.Vocal_Disp_Name_En = song.GetPerformerCharaEn();
                         }
                         else
                         {
