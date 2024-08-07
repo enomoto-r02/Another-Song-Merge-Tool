@@ -1,4 +1,6 @@
-﻿namespace Another_Song_Merge_Tool.DIVA
+﻿using Another_Song_Merge_Tool.Util;
+
+namespace Another_Song_Merge_Tool.DIVA
 {
     public class PvDb
     {
@@ -333,8 +335,33 @@
                 && !string.IsNullOrEmpty(another.Name_En)
                 && !string.IsNullOrEmpty(another.Song_File_Name))
             {
-                if (string.IsNullOrEmpty(another.Vocal_Disp_Name)) { another.Vocal_Disp_Name = Path.GetFileName(Song_File_Name); }
-                if (string.IsNullOrEmpty(another.Vocal_Disp_Name_En)) { another.Vocal_Disp_Name_En = Path.GetFileName(Song_File_Name); }
+                // 第一優先表示(Jp)
+                if (string.IsNullOrEmpty(another.Vocal_Disp_Name)) {
+                    if (string.IsNullOrEmpty(another.Vocal_Chara_Num) == false)
+                    {
+                        // 第二優先表示(Jp)
+                        another.Vocal_Disp_Name = DivaUtil.GetChara(another.Vocal_Chara_Num); 
+                    }
+                    else
+                    {
+                        // 第三優先表示(Jp)
+                        another.Vocal_Disp_Name = Path.GetFileName(Song_File_Name);
+                    }
+                }
+                // 第一優先表示(En)
+                if (string.IsNullOrEmpty(another.Vocal_Disp_Name_En)) {
+
+                    if (string.IsNullOrEmpty(another.Vocal_Chara_Num) == false)
+                    {
+                        // 第二優先表示(En)
+                        another.Vocal_Disp_Name_En = DivaUtil.GetChara(another.Vocal_Chara_Num); 
+                    }
+                    else
+                    {
+                        // 第三優先表示(En)
+                        another.Vocal_Disp_Name_En = Path.GetFileName(Song_File_Name);
+                    }
+                }
 
                 // song_file_nameが重複しない場合は楽曲をanother_songに楽曲を追加
                 if (addAnotherSong.Where(x => x.Song_File_Name == another.Song_File_Name).Count() == 0)
