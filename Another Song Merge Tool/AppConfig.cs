@@ -10,6 +10,7 @@ namespace Another_Song_Merge_Tool
 
         static AppConfig Instance;
         public Config Config { get; set; }
+        public ConfigToml Toml { get; set; }
 
         public DivaModManagerConfig DivaModManager { get; set; }
 
@@ -24,7 +25,6 @@ namespace Another_Song_Merge_Tool
             }
             else
             {
-
                 Instance = new ConfigurationBuilder()
                 .AddIniFile(AppConfig.FILE_INI)
                 .Build()

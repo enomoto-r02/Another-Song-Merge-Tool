@@ -13,11 +13,12 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Ini" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
     <PackageReference Include="NaturalSort.Extension" Version="4.3.0" />
+    <PackageReference Include="Nett" Version="0.15.0" />
   </ItemGroup>
 
   <ItemGroup>
     <None Update="Another Song Merge Tool.ini">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Combine_Pv_No.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

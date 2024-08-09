@@ -17,17 +17,52 @@ namespace Another_Song_Merge_Tool
 
             if (appConfig == null)
             {
-                Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "\"" + AppConfig.FILE_INI + "\" is Not Found.");
+                Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "File \"" + AppConfig.FILE_INI + "\" is Not Found.");
                 Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "Tool Failed.");
-                ToolUtil.ErrorLog("\"" + AppConfig.FILE_INI + "\" is Not Found.");
+                ToolUtil.ErrorLog("File \"" + AppConfig.FILE_INI + "\" is Not Found.");
 
                 return;
             }
             else if (File.Exists(appConfig.DivaModManager.ConfigPath) == false)
             {
-                Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "\"" + appConfig.DivaModManager.ConfigPath + "\" is Not Found.");
+                Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "File \"" + appConfig.DivaModManager.ConfigPath + "\" in "+ AppConfig.FILE_INI + " is Not Found.");
                 Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "Tool Failed.");
-                ToolUtil.ErrorLog("\"" + appConfig.DivaModManager.ConfigPath + "\" is Not Found.");
+                ToolUtil.ErrorLog("File \"" + appConfig.DivaModManager.ConfigPath + "\" in \"" + AppConfig.FILE_INI + "\" is Not Found.");
+
+                return;
+            }
+            else if (appConfig.Toml == null)
+            {
+                Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "Section [Toml] in \"" + AppConfig.FILE_INI + "\" is Not Found.");
+                Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "Tool Failed.");
+                ToolUtil.ErrorLog("Section [Toml] in \\\"\" + AppConfig.FILE_INI + \"\\\" is Not Found.");
+
+                return;
+            }
+            else if (File.Exists(appConfig.Toml.Config) == false)
+            {
+                Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "File \"" + appConfig.Toml.Config + "\" is Not Found.");
+                Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "Tool Failed.");
+                ToolUtil.ErrorLog("File \"" + appConfig.Toml.Config + "\" is Not Found.");
+
+                return;
+            }
+
+            ConfigToml toml = new(appConfig);
+
+            if (toml.Dll == null)
+            {
+                Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "\"dll\" description in "+ appConfig.Toml.Config +" is Not Found.");
+                Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "Tool Failed.");
+                ToolUtil.ErrorLog("\"dll\" description in " + appConfig.Toml.Config + " is Not Found.");
+
+                return;
+            }
+            if (File.Exists(toml.Dll[0]) == false)
+            {
+                Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "File \"" + toml.Dll[0] + "\" in "+ appConfig.Toml.Config + " is Not Found");
+                Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "Tool Failed.");
+                ToolUtil.ErrorLog("File \"" + toml.Dll[0] + "\" in " + appConfig.Toml.Config + " is Not Found");
 
                 return;
             }
