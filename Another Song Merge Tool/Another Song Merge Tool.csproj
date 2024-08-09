@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <None Update="Another Song Merge Tool.ini">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="Combine_Pv_No.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

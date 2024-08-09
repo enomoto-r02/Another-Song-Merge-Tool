@@ -1,10 +1,13 @@
-﻿using Another_Song_Merge_Tool.Manager;
+﻿using Another_Song_Merge_Tool.DIVA;
+using Another_Song_Merge_Tool.Manager;
 using Microsoft.Extensions.Configuration;
 
 namespace Another_Song_Merge_Tool
 {
     public class AppConfig
     {
+        public static string FILE_INI = "Another Song Merge Tool.ini";
+
         static AppConfig Instance;
         public Config Config { get; set; }
 
@@ -15,11 +18,18 @@ namespace Another_Song_Merge_Tool
         {
             if (Instance != null) return Instance;
 
-            Instance = new ConfigurationBuilder()
-                .AddIniFile(".\\Another Song Merge Tool.ini")
+            if (File.Exists(AppConfig.FILE_INI) == false)
+            {
+                return null;
+            }
+            else
+            {
+
+                Instance = new ConfigurationBuilder()
+                .AddIniFile(AppConfig.FILE_INI)
                 .Build()
                 .Get<AppConfig>();
-
+            }
             return Instance;
         }
     }

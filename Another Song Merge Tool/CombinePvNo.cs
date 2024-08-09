@@ -7,23 +7,23 @@ using System.Threading.Tasks;
 
 namespace Another_Song_Merge_Tool
 {
+
     public class CombinePvNo
     {
-        public readonly string FileName;
+        public static string FILE_COMBINE = "Combine_Pv_No.txt";
 
         public List<string> PvNos;
 
         public CombinePvNo() 
         {
-            this.FileName = "Combine_Pv_No.txt";
             this.PvNos = new();
         }
 
         public void Load()
         {
-            if (File.Exists(this.FileName))
+            if (File.Exists(FILE_COMBINE))
             {
-                foreach(var line in FileUtil.ReadFile(this.FileName).Split("\r\n").ToList())
+                foreach(var line in FileUtil.ReadFile(FILE_COMBINE).Split("\r\n").ToList())
                 {
                     if (string.IsNullOrEmpty(line.Trim()) == false && line.Trim().StartsWith("#") == false)
                     {
@@ -39,11 +39,11 @@ namespace Another_Song_Merge_Tool
 
             if (this.PvNos.Count > 0)
             {
-                sb.AppendLine("[Another Song Merge Tool] combine_pv_no.txt");
+                sb.AppendLine(ToolUtil.CONSOLE_PREFIX + FILE_COMBINE);
 
                 foreach (var pv_nos in this.PvNos)
                 {
-                    sb.AppendLine("[Another Song Merge Tool] - " + pv_nos.ToString());
+                    sb.AppendLine(ToolUtil.CONSOLE_PREFIX + " - " + pv_nos.ToString());
                 }
             }
 

@@ -13,7 +13,25 @@ namespace Another_Song_Merge_Tool
 
         static void Main(string[] args)
         {
-            Console.WriteLine("[Another Song Merge Tool] Tool Start.");
+            Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "Tool Start.");
+
+            if (appConfig == null)
+            {
+                Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "\"" + AppConfig.FILE_INI + "\" is Not Found.");
+                Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "Tool Failed.");
+                ToolUtil.ErrorLog("\"" + AppConfig.FILE_INI + "\" is Not Found.");
+
+                return;
+            }
+            else if (File.Exists(appConfig.DivaModManager.ConfigPath) == false)
+            {
+                Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "\"" + appConfig.DivaModManager.ConfigPath + "\" is Not Found.");
+                Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "Tool Failed.");
+                ToolUtil.ErrorLog("\"" + appConfig.DivaModManager.ConfigPath + "\" is Not Found.");
+
+                return;
+            }
+
             FileUtil.CreateFolder("rom");
 
             if (appConfig.Config.BackupPvDb)
@@ -21,7 +39,7 @@ namespace Another_Song_Merge_Tool
                 var new_file_name = FileUtil.Backup("./rom/mod_pv_db.txt");
                 if (File.Exists(new_file_name) == true)
                 {
-                    Console.WriteLine("[Another Song Merge Tool] {0} Backup Complete.", Path.GetFileName(new_file_name));
+                    Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "{0} Backup Complete.", Path.GetFileName(new_file_name));
                     //Console.WriteLine();
                 }
             }
@@ -30,7 +48,7 @@ namespace Another_Song_Merge_Tool
                 var del_file_name = FileUtil.Delete("./rom/mod_pv_db.txt");
                 if (File.Exists(del_file_name) == false)
                 {
-                    Console.WriteLine("[Another Song Merge Tool] {0} Delete Complete.", Path.GetFileName(del_file_name));
+                    Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "{0} Delete Complete.", Path.GetFileName(del_file_name));
                     //Console.WriteLine();
                 }
             }
@@ -38,13 +56,19 @@ namespace Another_Song_Merge_Tool
             CombinePvNo combine_pvno = new CombinePvNo();
             combine_pvno.Load();
             if (string.IsNullOrEmpty(combine_pvno.ToString())) {
-                Console.WriteLine("[Another Song Merge Tool] " + combine_pvno.ToString());
+                Console.WriteLine(ToolUtil.CONSOLE_PREFIX + combine_pvno.ToString());
             }
 
             DivaModManager dmm = new(appConfig);
+            if (dmm.Mods.Count == 0)
+            {
+                Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "There are no mods to merge.");
+                return;
+            }
+
             Console.WriteLine(dmm.ToStringMods());
 
-            Console.WriteLine("[Another Song Merge Tool] mod_pv_db.txt Generating...");
+            Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "mod_pv_db.txt Generating...");
 
             dmm.LoadPvDb();
 
@@ -52,9 +76,9 @@ namespace Another_Song_Merge_Tool
 
             Output(dmm, merge_mod, combine_pvno.PvNos);
 
-            Console.WriteLine("[Another Song Merge Tool] mod_pv_db.txt Generation Complete.");
+            Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "mod_pv_db.txt Generation Complete.");
             //Console.WriteLine();
-            Console.WriteLine("[Another Song Merge Tool] Tool End.");
+            Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "Tool End.");
             //Console.WriteLine();
             //Console.WriteLine("Press any key to exit.");
             //Console.ReadKey();
