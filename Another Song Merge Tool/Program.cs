@@ -71,7 +71,7 @@ namespace Another_Song_Merge_Tool
 
             if (appConfig.Config.BackupPvDb)
             {
-                var new_file_name = FileUtil.Backup("./rom/mod_pv_db.txt");
+                var new_file_name = FileUtil.Backup("./rom/"+Mod.FILE_PV_MOD);
                 if (File.Exists(new_file_name) == true)
                 {
                     Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "{0} Backup Complete.", Path.GetFileName(new_file_name));
@@ -79,7 +79,7 @@ namespace Another_Song_Merge_Tool
             }
             else
             {
-                var del_file_name = FileUtil.Delete("./rom/mod_pv_db.txt");
+                var del_file_name = FileUtil.Delete("./rom/" + Mod.FILE_PV_MOD);
                 if (File.Exists(del_file_name) == false)
                 {
                     Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "{0} Delete Complete.", Path.GetFileName(del_file_name));
@@ -101,7 +101,7 @@ namespace Another_Song_Merge_Tool
 
             Console.WriteLine(dmm.ToStringMods());
 
-            Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "mod_pv_db.txt Generating...");
+            Console.WriteLine(ToolUtil.CONSOLE_PREFIX + Mod.FILE_PV_MOD + " Generating...");
 
             dmm.LoadPvDb();
 
@@ -109,7 +109,7 @@ namespace Another_Song_Merge_Tool
 
             Output(dmm, merge_mod, combine_pvno.PvNos);
 
-            Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "mod_pv_db.txt Generation Complete.");
+            Console.WriteLine(ToolUtil.CONSOLE_PREFIX + Mod.FILE_PV_MOD +" Generation Complete.");
             Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "Tool End.");
             //Console.WriteLine();
             //Console.WriteLine("Press any key to exit.");
@@ -150,7 +150,7 @@ namespace Another_Song_Merge_Tool
                 }
             }
 
-            FileUtil.WriteFile_UTF_8_NO_BOM(sb.ToString(), "./rom/mod_pv_db.txt", false);
+            FileUtil.WriteFile_UTF_8_NO_BOM(sb.ToString(), "./rom/"+ Mod.FILE_PV_MOD, false);
         }
     }
 }

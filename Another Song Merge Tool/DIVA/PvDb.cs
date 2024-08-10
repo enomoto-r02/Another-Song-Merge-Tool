@@ -312,6 +312,11 @@ namespace Another_Song_Merge_Tool.DIVA
                                 else if (song_line.Parameters[2] == "vocal_chara_num") { another.Vocal_Chara_Num = song_line.Value; }
                                 else if (song_line.Parameters[2] == "vocal_disp_name") { another.Vocal_Disp_Name = song_line.Value; }
                                 else if (song_line.Parameters[2] == "vocal_disp_name_en") { another.Vocal_Disp_Name_En = song_line.Value; }
+                                //var songpath = "../" + Mod_Name + "/" + another.Song_File_Name;
+                                //if (string.IsNullOrEmpty(another.Song_File_Name) == false && File.Exists(songpath) == false)
+                                //{
+                                //    ToolUtil.WarnLog("\"" + another.Song_File_Name + "\" is Not Found. in \"" + this.Mod_Name + "\"");
+                                //}
                             }
                             // another_song.length
                             else

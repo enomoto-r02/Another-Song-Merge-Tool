@@ -27,8 +27,10 @@ namespace Another_Song_Merge_Tool.Util
 
         public static void WriteFile_UTF_8_NO_BOM(string str, string path, Boolean addFlg)
         {
+            System.Text.Encoding enc = new System.Text.UTF8Encoding(false);
+
             // UTF-8 BOM無し
-            using (StreamWriter writer = new StreamWriter(path))
+            using (StreamWriter writer = new StreamWriter(path, addFlg, enc))
             {
                 writer.Write(str);
                 writer.Close();

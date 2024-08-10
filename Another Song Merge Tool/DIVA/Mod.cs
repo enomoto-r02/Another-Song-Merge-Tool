@@ -2,6 +2,10 @@
 {
     public class Mod
     {
+        public static string FILE_PV_DB = "pv_db.txt";
+        public static string FILE_PV_MOD = "mod_pv_db.txt";
+        public static string FILE_PV_MDATA = "mdata_pv_db.txt";
+
         public string Name { get; set; }
         public string Folder_Path { get; set; }
         public PvDb Pv_Db { get; set; }
@@ -26,24 +30,24 @@
             this.Folder_Path = folder_path;
             this.Pv_Db_Priority = -1;
 
-            var mod_pv_path = folder_path + "\\rom\\" + "mod_pv_db.txt";
-            var pv_path = folder_path + "\\rom\\" + "pv_db.txt";
-            var mdata_pv_path = folder_path + "\\rom\\" + "mdata_pv_db.txt";
+            var mod_pv_path = folder_path + "\\rom\\" + FILE_PV_MOD;
+            var pv_path = folder_path + "\\rom\\" + FILE_PV_DB;
+            var mdata_pv_path = folder_path + "\\rom\\" + FILE_PV_MDATA;
 
             if (File.Exists(mod_pv_path))
             {
                 this.Pv_Db_Path = mod_pv_path;
-                this.Pv_Db_Name = "mod_pv_db.txt";
+                this.Pv_Db_Name = FILE_PV_MOD;
             }
             else if (File.Exists(pv_path))
             {
                 this.Pv_Db_Path = pv_path;
-                this.Pv_Db_Name = "pv_db.txt";
+                this.Pv_Db_Name = FILE_PV_MOD;
             }
             else if (File.Exists(mdata_pv_path))
             {
                 this.Pv_Db_Path = mdata_pv_path;
-                this.Pv_Db_Name = "mdata_pv_db.txt";
+                this.Pv_Db_Name = FILE_PV_MDATA;
             }
             else
             {
