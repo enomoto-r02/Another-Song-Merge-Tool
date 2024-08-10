@@ -75,7 +75,6 @@ namespace Another_Song_Merge_Tool
                 if (File.Exists(new_file_name) == true)
                 {
                     Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "{0} Backup Complete.", Path.GetFileName(new_file_name));
-                    //Console.WriteLine();
                 }
             }
             else
@@ -84,7 +83,6 @@ namespace Another_Song_Merge_Tool
                 if (File.Exists(del_file_name) == false)
                 {
                     Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "{0} Delete Complete.", Path.GetFileName(del_file_name));
-                    //Console.WriteLine();
                 }
             }
 
@@ -112,7 +110,6 @@ namespace Another_Song_Merge_Tool
             Output(dmm, merge_mod, combine_pvno.PvNos);
 
             Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "mod_pv_db.txt Generation Complete.");
-            //Console.WriteLine();
             Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "Tool End.");
             //Console.WriteLine();
             //Console.WriteLine("Press any key to exit.");

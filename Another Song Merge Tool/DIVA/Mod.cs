@@ -16,7 +16,6 @@
             this.Pv_Db = new PvDb(this.Name);
             this.Priority = -1;
             this.Pv_Db_Priority = -1;
-
         }
 
         public Mod(int priority, string name, string enabled, string folder_path) : this()
@@ -29,6 +28,7 @@
 
             var mod_pv_path = folder_path + "\\rom\\" + "mod_pv_db.txt";
             var pv_path = folder_path + "\\rom\\" + "pv_db.txt";
+            var mdata_pv_path = folder_path + "\\rom\\" + "mdata_pv_db.txt";
 
             if (File.Exists(mod_pv_path))
             {
@@ -39,6 +39,11 @@
             {
                 this.Pv_Db_Path = pv_path;
                 this.Pv_Db_Name = "pv_db.txt";
+            }
+            else if (File.Exists(mdata_pv_path))
+            {
+                this.Pv_Db_Path = mdata_pv_path;
+                this.Pv_Db_Name = "mdata_pv_db.txt";
             }
             else
             {

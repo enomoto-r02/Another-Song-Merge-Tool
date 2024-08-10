@@ -1,4 +1,5 @@
 ﻿using Another_Song_Merge_Tool.DIVA;
+using Another_Song_Merge_Tool.Util;
 using Microsoft.Extensions.Configuration;
 using System.Text;
 
@@ -103,11 +104,11 @@ namespace Another_Song_Merge_Tool.Manager
 
             if (this.Mods.Count > 0)
             {
-                sb.AppendLine("[Another Song Merge Tool] Load Mods Folder");
+                sb.AppendLine(ToolUtil.CONSOLE_PREFIX + "Load Mods Folder");
 
                 foreach (var item in this.Mods)
                 {
-                    sb.AppendLine("[Another Song Merge Tool] - " + item.Name);
+                    sb.AppendLine(ToolUtil.CONSOLE_PREFIX + "- " + item.Name);
                 }
             }
 
@@ -129,44 +130,6 @@ namespace Another_Song_Merge_Tool.Manager
                     addLines.Add(string.Format("{0}.another_song.length={1}", pv_no.Key, cnt));
                 }
             }
-        }
-
-        public Mod Composition_old()
-        {
-            Mod composition_mod = new Mod();
-
-            string song_pv_no = "";
-            foreach (var mod in Mods)
-            {
-                foreach (var song in mod.Pv_Db.Songs)
-                {
-                    foreach (var song_data in song.Lines)
-                    {
-                        // 既に読み込み済みの楽曲
-                        if (Add_Song.Contains(song_data.Pv_No))
-                        {
-                            // 削除
-                            song_data.Is_Del_Line = true;
-                        }
-                        Song composition_mod_song = new Song();
-                        composition_mod.Pv_Db.Songs.Add(composition_mod_song);
-                        composition_mod.Pv_Db.Songs[0].Lines.Add(song_data);
-
-                        if (string.IsNullOrEmpty(song_pv_no))
-                        {
-                            song_pv_no = song_data.Pv_No;
-                        }
-                    }
-                }
-            }
-
-            // 読み込み済楽曲として設定
-            if (string.IsNullOrEmpty(song_pv_no) == false)
-            {
-                Add_Song.Add(song_pv_no);
-            }
-
-            return composition_mod;
         }
 
         public Mod Composition()
@@ -192,7 +155,6 @@ namespace Another_Song_Merge_Tool.Manager
                                 // 削除
                                 song_line.Is_Del_Line = true;
                             }
-                            // composition_mod.Pv_Db.Song_Lines.Add(song_line);
                             composition_song.Lines.Add(song_line);
                         }
 

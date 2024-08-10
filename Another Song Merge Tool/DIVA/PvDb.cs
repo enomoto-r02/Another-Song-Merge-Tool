@@ -44,10 +44,6 @@ namespace Another_Song_Merge_Tool.DIVA
                     }
 
                     SongLine song_line = new(priority, this.Pv_Db_Priority, line);
-                    //if (song_line.Pv_No == "pv_203")
-                    //{
-                    //    ;
-                    //}
 
                     if (song_line.Parameters.Length == 0)
                     {
@@ -163,23 +159,23 @@ namespace Another_Song_Merge_Tool.DIVA
                                 {
                                     another.Name = base_song_line.Value;
                                 }
-                                if (base_song_line.Parameters[2] == "name_en")
+                                else if (base_song_line.Parameters[2] == "name_en")
                                 {
                                     another.Name_En = base_song_line.Value;
                                 }
-                                if (base_song_line.Parameters[2] == "vocal_chara_num")
+                                else if (base_song_line.Parameters[2] == "vocal_chara_num")
                                 {
                                     another.Vocal_Chara_Num = base_song_line.Value;
                                 }
-                                if (base_song_line.Parameters[2] == "vocal_disp_name")
+                                else if (base_song_line.Parameters[2] == "vocal_disp_name")
                                 {
                                     another.Vocal_Disp_Name = base_song_line.Value;
                                 }
-                                if (base_song_line.Parameters[2] == "vocal_disp_name_en")
+                                else if (base_song_line.Parameters[2] == "vocal_disp_name_en")
                                 {
                                     another.Vocal_Disp_Name_En = base_song_line.Value;
                                 }
-                                if (base_song_line.Parameters[1] == "length")
+                                else if (base_song_line.Parameters[1] == "length")
                                 {
                                     break;
                                 }

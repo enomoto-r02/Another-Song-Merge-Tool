@@ -29,7 +29,6 @@ namespace Another_Song_Merge_Tool.DIVA
         {
             var hoge = Add_AnotherSong.OrderBy(x => x.Pv_No);
 
-
             StringBuilder ret = new StringBuilder();
 
             if (string.IsNullOrEmpty(this.Name) == false || string.IsNullOrEmpty(this.Name_En) == false)
@@ -84,7 +83,6 @@ namespace Another_Song_Merge_Tool.DIVA
                         }
                     }
                     ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name") + "=" + view);
-                    //ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name") + "=" + this.Vocal_Disp_Name);
                 }
                 else
                 {
@@ -102,7 +100,6 @@ namespace Another_Song_Merge_Tool.DIVA
                         }
                     }
                     ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name_en") + "=" + view);
-                    //ret.AppendLine(string.Join(".", this.Pv_No, "another_song", this.Another_No, "vocal_disp_name_en") + "=" + this.Vocal_Disp_Name_En);
                 }
                 else
                 {
@@ -111,7 +108,6 @@ namespace Another_Song_Merge_Tool.DIVA
             }
             else
             {
-                //return string.Join(".", this.Pv_No, "another_song", "length") + "=" + this.length + "\n";
                 return "Song#ToString() : Length";
             }
 

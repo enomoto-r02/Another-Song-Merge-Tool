@@ -31,6 +31,10 @@ namespace Another_Song_Merge_Tool
                     }
                 }
             }
+            else
+            {
+                ToolUtil.InfoLog(FILE_COMBINE + " is not Found.");
+            }
         }
 
         public override string ToString()
