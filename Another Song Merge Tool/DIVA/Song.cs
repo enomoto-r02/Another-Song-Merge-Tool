@@ -12,7 +12,6 @@ namespace Another_Song_Merge_Tool.DIVA
 
         public List<SongLine> Lines { get; set; }
 
-
         public int Another_No { get; set; }
         public string Vocal_Chara_Num { get; set; }
         public string Vocal_Disp_Name { get; set; }
@@ -25,7 +24,7 @@ namespace Another_Song_Merge_Tool.DIVA
             this.Performer = [];
         }
 
-        public string ToString(Config Config, List<Song> Add_AnotherSong)
+        public string ToStringPvDb(Config Config, List<Song> Add_AnotherSong)
         {
             var hoge = Add_AnotherSong.OrderBy(x => x.Pv_No);
 
@@ -109,6 +108,21 @@ namespace Another_Song_Merge_Tool.DIVA
             else
             {
                 return "Song#ToString() : Length";
+            }
+
+            return ret.ToString();
+        }
+
+        public string ToStringPvField()
+        {
+            StringBuilder ret = new StringBuilder();
+
+            if (string.IsNullOrEmpty(this.Pv_No) == false)
+            {
+                foreach (var line in this.Lines)
+                {
+                    ret.AppendLine(line.ToString());
+                }
             }
 
             return ret.ToString();

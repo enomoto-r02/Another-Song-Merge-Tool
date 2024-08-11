@@ -18,15 +18,17 @@ namespace Another_Song_Merge_Tool.Manager
 
         public List<string> Song_no_cnt { get; }
 
-        public List<Song> Add_AnotherSong { get; set; }
+        public List<Song> AddDbAnotherSong { get; set; }
         public List<string> Add_Song { get; }
+        public List<Song> allFieldSong { get; set; }
 
 
         public DivaModManager()
         {
             this.Song_no_cnt = [];
-            this.Add_AnotherSong = [];
+            this.AddDbAnotherSong = [];
             this.Add_Song = [];
+            this.allFieldSong = [];
         }
         public DivaModManager(AppConfig Config) : this()
         {
@@ -59,9 +61,9 @@ namespace Another_Song_Merge_Tool.Manager
             {
                 Mod mod = new Mod(i, mod_name, mod_enabled, mod_folder);
 
-                if (mod.Pv_Db_Priority != -1)
+                if (mod.Db_Priority != -1)
                 {
-                    mod.Pv_Db_Priority = pv_db_priority;
+                    mod.Db_Priority = pv_db_priority;
                     pv_db_priority++;
                 }
                 if (mod.Enabled)
@@ -82,18 +84,20 @@ namespace Another_Song_Merge_Tool.Manager
             this.Mods = mods;
         }
 
-        public void LoadPvDb()
+        public void LoadPvData(AppConfig appConfig)
         {
             var now_pv_db_priority = 0;
             for (var i = 0; i < Mods.Count; i++)
             {
                 if (Mods[i].Enabled)
                 {
-                    Mods[i].LoadPvDb(this.Add_AnotherSong, this.Song_no_cnt, now_pv_db_priority);
-                    if (Mods[i].Pv_Db_Priority >= 0)
+                    Mods[i].LoadPvDb(this.AddDbAnotherSong, this.Song_no_cnt, now_pv_db_priority);
+                    Mods[i].LoadPvField(this.allFieldSong);
+                    if (Mods[i].Db_Priority >= 0)
                     {
                         now_pv_db_priority++;
                     }
+
                 }
             }
         }
@@ -118,13 +122,13 @@ namespace Another_Song_Merge_Tool.Manager
         public void ToStringLengthLine(List<string> addLines, List<string> combine_pv_nos)
         {
             StringBuilder sb = new StringBuilder();
-            foreach (var pv_no in this.Add_AnotherSong.GroupBy(x => x.Pv_No))
+            foreach (var pv_no in this.AddDbAnotherSong.GroupBy(x => x.Pv_No))
             {
                 if (combine_pv_nos.Count > 0 && combine_pv_nos.Contains(pv_no.Key) == false)
                 {
                     continue;
                 }
-                var cnt = this.Add_AnotherSong.Where(x => x.Pv_No == pv_no.Key).Count();
+                var cnt = this.AddDbAnotherSong.Where(x => x.Pv_No == pv_no.Key).Count();
                 if (cnt > 1)
                 {
                     addLines.Add(string.Format("{0}.another_song.length={1}", pv_no.Key, cnt));
@@ -139,8 +143,8 @@ namespace Another_Song_Merge_Tool.Manager
 
             foreach (var mod in Mods)
             {
-                foreach(var song in mod.Pv_Db.Base_Songs_Data)
-                { 
+                foreach (var song in mod.Pv_Db.Base_Songs_Data)
+                {
                     foreach (var pv_no in song.Lines.GroupBy(x => x.Pv_No))
                     {
                         if (string.IsNullOrEmpty(pv_no.Key))

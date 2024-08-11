@@ -1,9 +1,5 @@
 ﻿using Another_Song_Merge_Tool.Util;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Another_Song_Merge_Tool
 {
@@ -14,7 +10,7 @@ namespace Another_Song_Merge_Tool
 
         public List<string> PvNos;
 
-        public CombinePvNo() 
+        public CombinePvNo()
         {
             this.PvNos = new();
         }
@@ -23,7 +19,7 @@ namespace Another_Song_Merge_Tool
         {
             if (File.Exists(FILE_COMBINE))
             {
-                foreach(var line in FileUtil.ReadFile(FILE_COMBINE).Split("\r\n").ToList())
+                foreach (var line in FileUtil.ReadFile(FILE_COMBINE).Split("\r\n").ToList())
                 {
                     if (string.IsNullOrEmpty(line.Trim()) == false && line.Trim().StartsWith("#") == false)
                     {

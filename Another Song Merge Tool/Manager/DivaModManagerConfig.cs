@@ -2,8 +2,13 @@
 {
     public class DivaModManagerConfig
     {
+
+        public static string FILE_CONFIG = "Config.json";
         public string Path { get; set; }
-        public string Config { get; set; }
-        public string ConfigPath { get { return this.Path + "\\" + this.Config; } }
+        public string ConfigPath { get { return this.Path + "\\" + FILE_CONFIG; } }
+
+        public DivaModManagerConfig()
+        {
+        }
     }
 }

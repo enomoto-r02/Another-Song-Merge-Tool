@@ -8,7 +8,7 @@
         public bool AnotherSongMarkSuffix { get; set; }
         public string AnotherSongMarkSuffixStr { get; set; }
 
-        public Config() 
+        public Config()
         {
             this.BackupPvDb = false;
         }

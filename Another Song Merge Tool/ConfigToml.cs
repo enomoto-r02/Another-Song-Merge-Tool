@@ -1,14 +1,10 @@
-﻿using Another_Song_Merge_Tool.DIVA;
-using Microsoft.Extensions.Configuration;
-using Nett;
+﻿using Nett;
 
 namespace Another_Song_Merge_Tool
 {
     public class ConfigToml
     {
-
-        public string Config { get; set; }
-
+        public static string FILE_CONFIG = "config.toml";
 
         public bool Enabled { get; set; }
         public string Name { get; set; }
@@ -20,12 +16,7 @@ namespace Another_Song_Merge_Tool
 
         public ConfigToml()
         {
-            ;
-        }
-
-        public ConfigToml(AppConfig Config) : base()
-        {
-            var toml = Toml.ReadFile(Config.Toml.Config);
+            var toml = Toml.ReadFile(FILE_CONFIG);
 
             //this.Enabled = toml.Get<bool>("enabled");
             //this.Name = toml.Get<string>("name");
@@ -36,7 +27,7 @@ namespace Another_Song_Merge_Tool
             try
             {
                 this.Dll = toml.Get<List<string>>("dll");
-            } 
+            }
             catch
             {
                 this.Dll = null;

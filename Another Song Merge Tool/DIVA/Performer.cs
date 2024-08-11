@@ -1,16 +1,11 @@
 ﻿using Another_Song_Merge_Tool.Util;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Another_Song_Merge_Tool.DIVA
 {
 
     public class Performer
     {
-        public string Chara {  get; set; }
+        public string Chara { get; set; }
         public string Type { get; set; }
         public int Index { get; set; }
 

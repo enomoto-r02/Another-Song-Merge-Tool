@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace Another_Song_Merge_Tool.DIVA
+﻿namespace Another_Song_Merge_Tool.DIVA
 {
     public class SongLine
     {

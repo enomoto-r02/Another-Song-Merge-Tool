@@ -5,45 +5,38 @@ namespace Another_Song_Merge_Tool.DIVA
     public class PvDb
     {
         public string Mod_Name { get; set; }
-        public string Pv_Db_Name { get; set; }
-        public int Pv_Db_Priority { get; set; }
+        public string Db_Name { get; set; }
+        public string Db_Path { get; set; }
+        public int Db_Priority { get; set; }
 
         public string Song_File_Name { get; set; }
         public List<Song> Base_Songs_Data { get; set; }
         public List<Song> Songs { get; set; }
 
-        public PvDb(string mod_name)
+        public PvDb(string mod_name, int pv_db_priority)
         {
             this.Mod_Name = mod_name;
+            this.Db_Priority = pv_db_priority;
             this.Base_Songs_Data = [];
             this.Songs = [];
         }
 
-        public PvDb(string mod_name, string pv_db_name, int pv_db_priority)
-        {
-            this.Mod_Name = mod_name;
-            this.Pv_Db_Name = pv_db_name;
-            this.Pv_Db_Priority = pv_db_priority;
-            this.Base_Songs_Data = [];
-            this.Songs = [];
-        }
-
-        public void Load(List<Song> addAnotherSong, List<string> song_no_cnt, int priority, string path)
+        public void Load(List<Song> addAnotherSong, List<string> song_no_cnt)
         {
             // mod_pv_db.txtを全行読み込む
-            if (string.IsNullOrEmpty(path) == false && File.Exists(path) == true)
+            if (string.IsNullOrEmpty(this.Db_Path) == false && File.Exists(this.Db_Path) == true)
             {
                 Song base_song = new Song();
                 Performer base_performer = new Performer();
 
-                foreach (var line in File.ReadAllLines(path))
+                foreach (var line in File.ReadAllLines(this.Db_Path))
                 {
                     if (string.IsNullOrEmpty(line.Replace("\t", "")) || line.StartsWith('#'))
                     {
                         continue;
                     }
 
-                    SongLine song_line = new(priority, this.Pv_Db_Priority, line);
+                    SongLine song_line = new(this.Db_Priority, this.Db_Priority, line);
 
                     if (song_line.Parameters.Length == 0)
                     {
@@ -60,7 +53,8 @@ namespace Another_Song_Merge_Tool.DIVA
                         base_performer = new Performer();
                     }
 
-                    if (string.IsNullOrEmpty(base_song.Pv_No)) { 
+                    if (string.IsNullOrEmpty(base_song.Pv_No))
+                    {
                         base_song.Pv_No = song_line.Pv_No;
                     }
                     if (song_line.Parameters[0] == "another_song")
@@ -94,7 +88,7 @@ namespace Another_Song_Merge_Tool.DIVA
                                 base_performer = new();
                             }
 
-                            if(song_line.Parameters[2] == "chara")
+                            if (song_line.Parameters[2] == "chara")
                             {
                                 base_performer.Chara = song_line.Value;
                                 base_performer.Index = int.Parse(song_line.Parameters[1]);
@@ -106,7 +100,7 @@ namespace Another_Song_Merge_Tool.DIVA
                         }
                         else
                         {
-                            if (base_performer.Type == "VOCAL") base_song.Performer.Add(base_performer); 
+                            if (base_performer.Type == "VOCAL") base_song.Performer.Add(base_performer);
                             base_performer = new();
                         }
                     }
@@ -181,7 +175,8 @@ namespace Another_Song_Merge_Tool.DIVA
                                 }
                             }
 
-                            if(string.IsNullOrEmpty(another.Name)){
+                            if (string.IsNullOrEmpty(another.Name))
+                            {
                                 another.Name = base_song.Name;
                             }
                             if (string.IsNullOrEmpty(another.Name_En))
@@ -255,7 +250,7 @@ namespace Another_Song_Merge_Tool.DIVA
                                 another.Name_En = base_song.Name_En;
 
                                 // 最初の楽曲分減算
-                                another_no_now = song_no_cnt.Where(x => x == another.Pv_No).Count()-1;
+                                another_no_now = song_no_cnt.Where(x => x == another.Pv_No).Count() - 1;
                                 another_no_next = another_no_now;
                             }
                             if (line.Parameters[2] == "chara")
@@ -341,11 +336,12 @@ namespace Another_Song_Merge_Tool.DIVA
                 && !string.IsNullOrEmpty(another.Song_File_Name))
             {
                 // 第一優先表示(Jp)
-                if (string.IsNullOrEmpty(another.Vocal_Disp_Name)) {
+                if (string.IsNullOrEmpty(another.Vocal_Disp_Name))
+                {
                     if (string.IsNullOrEmpty(another.Vocal_Chara_Num) == false)
                     {
                         // 第二優先表示(Jp)
-                        another.Vocal_Disp_Name = DivaUtil.GetChara(another.Vocal_Chara_Num); 
+                        another.Vocal_Disp_Name = DivaUtil.GetChara(another.Vocal_Chara_Num);
                     }
                     else
                     {
@@ -354,12 +350,13 @@ namespace Another_Song_Merge_Tool.DIVA
                     }
                 }
                 // 第一優先表示(En)
-                if (string.IsNullOrEmpty(another.Vocal_Disp_Name_En)) {
+                if (string.IsNullOrEmpty(another.Vocal_Disp_Name_En))
+                {
 
                     if (string.IsNullOrEmpty(another.Vocal_Chara_Num) == false)
                     {
                         // 第二優先表示(En)
-                        another.Vocal_Disp_Name_En = DivaUtil.GetChara(another.Vocal_Chara_Num); 
+                        another.Vocal_Disp_Name_En = DivaUtil.GetChara(another.Vocal_Chara_Num);
                     }
                     else
                     {

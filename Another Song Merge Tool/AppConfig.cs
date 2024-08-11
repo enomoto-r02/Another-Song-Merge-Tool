@@ -1,5 +1,5 @@
-﻿using Another_Song_Merge_Tool.DIVA;
-using Another_Song_Merge_Tool.Manager;
+﻿using Another_Song_Merge_Tool.Manager;
+using Another_Song_Merge_Tool.MikuMikuLibrary;
 using Microsoft.Extensions.Configuration;
 
 namespace Another_Song_Merge_Tool
@@ -10,9 +10,9 @@ namespace Another_Song_Merge_Tool
 
         static AppConfig Instance;
         public Config Config { get; set; }
-        public ConfigToml Toml { get; set; }
 
         public DivaModManagerConfig DivaModManager { get; set; }
+        public MikuMikuLibraryConfig MikuMikuLibrary { get; set; }
 
         public AppConfig() { }
         public static AppConfig Get()
