@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
 namespace Another_Song_Merge_Tool.MikuMikuLibrary
 {
@@ -17,16 +12,13 @@ namespace Another_Song_Merge_Tool.MikuMikuLibrary
         {
         }
 
-        public void Load(AppConfig appConfig)
+        public void Load(AppConfig appConfig, string fileName)
         {
             // 外部EXEを起動する
             var info = new ProcessStartInfo(DataBaseConverter_Path)
             {
                 // コマンドラインパラメータを指定する
-                ArgumentList =
-                {
-                    @"mod_stage_data.bin"
-                }
+                ArgumentList = { fileName }
             };
             Process? p = Process.Start(info);
 
@@ -34,7 +26,7 @@ namespace Another_Song_Merge_Tool.MikuMikuLibrary
             {
                 // 別EXEが終了するまで待つ場合
                 p.WaitForExit();
-                Console.WriteLine("DataBaseConverter 実行完了");
+                //Console.WriteLine("DataBaseConverter 実行完了");
 
                 // 別EXEを強制終了する場合
                 // System.Threading.Thread.Sleep(5000);
@@ -45,5 +37,5 @@ namespace Another_Song_Merge_Tool.MikuMikuLibrary
             }
         }
     }
-    
+
 }

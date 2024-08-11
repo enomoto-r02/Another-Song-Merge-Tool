@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace Another_Song_Merge_Tool.DIVA
 {
@@ -85,7 +80,7 @@ namespace Another_Song_Merge_Tool.DIVA
         {
             StringBuilder sb = new();
 
-            foreach(var song in this.Songs)
+            foreach (var song in this.Songs)
             {
                 sb.AppendLine(song.ToStringPvField());
             }

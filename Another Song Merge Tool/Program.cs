@@ -1,6 +1,5 @@
 ﻿using Another_Song_Merge_Tool.DIVA;
 using Another_Song_Merge_Tool.Manager;
-using Another_Song_Merge_Tool.MikuMikuLibrary;
 using Another_Song_Merge_Tool.Util;
 using NaturalSort.Extension;
 using System.Text;
@@ -10,7 +9,7 @@ namespace Another_Song_Merge_Tool
     class Program
     {
         static readonly AppConfig appConfig = AppConfig.Get();
-        static readonly string start_dt = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+        public static readonly string start_dt = DateTime.Now.ToString("yyyyMMdd_HHmmss");
 
         static void Main(string[] args)
         {
@@ -157,6 +156,7 @@ namespace Another_Song_Merge_Tool
 
             FileUtil.WriteFile_UTF_8_NO_BOM(sb.ToString(), "./rom/" + Mod.FILE_PV_MOD, false);
         }
+
         private static void Output_PvField(DivaModManager dmm)
         {
             List<string> outputs = new();

@@ -87,12 +87,21 @@ namespace Another_Song_Merge_Tool.Manager
         public void LoadPvData(AppConfig appConfig)
         {
             var now_pv_db_priority = 0;
+            var is_create_stage_data = false;
             for (var i = 0; i < Mods.Count; i++)
             {
                 if (Mods[i].Enabled)
                 {
                     Mods[i].LoadPvDb(this.AddDbAnotherSong, this.Song_no_cnt, now_pv_db_priority);
                     Mods[i].LoadPvField(this.allFieldSong);
+                    if (is_create_stage_data == false)
+                    {
+                        is_create_stage_data = Mods[i].InitStageData(appConfig);
+                    }
+                    else
+                    {
+                        Mods[i].LoadStageData(appConfig);
+                    }
                     if (Mods[i].Db_Priority >= 0)
                     {
                         now_pv_db_priority++;
@@ -100,6 +109,8 @@ namespace Another_Song_Merge_Tool.Manager
 
                 }
             }
+            Mod.EndStageData(appConfig);
+
         }
 
         public string ToStringMods()
