@@ -2,6 +2,9 @@
 {
     public class Config
     {
+        public bool MergePvField { get; set; }
+        public bool MergeStageData { get; set; }
+
         public bool BackupPvDb { get; set; }
         public bool AnotherSongMarkPrefix { get; set; }
         public string AnotherSongMarkPrefixStr { get; set; }

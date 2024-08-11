@@ -58,7 +58,7 @@ namespace Another_Song_Merge_Tool
 
                 return;
             }
-            if (File.Exists(appConfig.MikuMikuLibrary.DataBaseConverter_Path) == false)
+            if (appConfig.Config.MergeStageData && File.Exists(appConfig.MikuMikuLibrary.DataBaseConverter_Path) == false)
             {
                 Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "File \"" + appConfig.MikuMikuLibrary.DataBaseConverter_Path + "\" in " + ConfigToml.FILE_CONFIG + " is Not Found");
                 Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "Tool Failed.");
@@ -111,7 +111,10 @@ namespace Another_Song_Merge_Tool
             Mod merge_mod = dmm.Composition();
 
             Output_PvDb(dmm, merge_mod, combine_pvno.PvNos);
-            Output_PvField(dmm);
+            if (appConfig.Config.MergePvField)
+            {
+                Output_PvField(dmm);
+            }
 
             Console.WriteLine(ToolUtil.CONSOLE_PREFIX + Mod.FILE_PV_MOD + " Generation Complete.");
             Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "Tool End.");
