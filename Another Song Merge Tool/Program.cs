@@ -77,14 +77,6 @@ namespace Another_Song_Merge_Tool
                     Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "{0} Backup Complete.", Path.GetFileName(new_file_name));
                 }
             }
-            else
-            {
-                var del_file_name = FileUtil.Delete("./rom/" + Mod.FILE_PV_MOD);
-                if (File.Exists(del_file_name) == false)
-                {
-                    Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "{0} Delete Complete.", Path.GetFileName(del_file_name));
-                }
-            }
 
             CombinePvNo combine_pvno = new CombinePvNo();
             combine_pvno.Load();
@@ -105,6 +97,16 @@ namespace Another_Song_Merge_Tool
             Console.WriteLine(dmm.ToStringMods());
 
             Console.WriteLine(ToolUtil.CONSOLE_PREFIX + Mod.FILE_PV_MOD + " Generating...");
+
+            FileUtil.Delete("./rom/" + Mod.FILE_PV_DB);
+            FileUtil.Delete("./rom/" + Mod.FILE_PV_MOD);
+            FileUtil.Delete("./rom/" + Mod.FILE_PV_MDATA);
+            FileUtil.Delete("./rom/" + Mod.FILE_FIELD_DB);
+            FileUtil.Delete("./rom/" + Mod.FILE_FIELD_MOD);
+            FileUtil.Delete("./rom/" + Mod.FILE_FIELD_MDATA);
+            FileUtil.Delete("./rom/" + Mod.FILE_STAGE_BIN_DB);
+            FileUtil.Delete("./rom/" + Mod.FILE_STAGE_BIN_MOD);
+            FileUtil.Delete("./rom/" + Mod.FILE_STAGE_BIN_MDATA);
 
             dmm.LoadPvData(appConfig);
 
@@ -146,15 +148,20 @@ namespace Another_Song_Merge_Tool
             }
             dmm.ToStringLengthLine(outputs, combine_pv_nos);
 
-            outputs = outputs.OrderBy(x => x.ToString(), StringComparison.OrdinalIgnoreCase.WithNaturalSort()).ToList();
-
+            // Another Song行は数行まとめて出力するため、StringBuilderのToStringしてからソート
             StringBuilder sb = new StringBuilder();
             foreach (var output in outputs)
             {
-                if (string.IsNullOrEmpty(output.ToString()) == false)
-                {
-                    sb.AppendLine(output.ToString());
-                }
+                sb.AppendLine(output.ToString());
+            }
+
+            outputs = sb.ToString().Split("\r\n").ToList();
+            outputs = outputs.OrderBy(x => x.ToString(), StringComparer.Ordinal).ToList();
+
+            sb = new StringBuilder();
+            foreach (var output in outputs)
+            {
+                sb.AppendLine(output.ToString());
             }
 
             FileUtil.WriteFile_UTF_8_NO_BOM(sb.ToString(), "./rom/" + Mod.FILE_PV_MOD, false);
