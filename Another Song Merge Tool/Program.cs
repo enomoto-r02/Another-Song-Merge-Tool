@@ -86,6 +86,16 @@ namespace Another_Song_Merge_Tool
                 Console.WriteLine(ToolUtil.CONSOLE_PREFIX + combine_pvno.ToString());
             }
 
+            FileUtil.Delete("./rom/" + Mod.FILE_PV_DB);
+            FileUtil.Delete("./rom/" + Mod.FILE_PV_MOD);
+            FileUtil.Delete("./rom/" + Mod.FILE_PV_MDATA);
+            FileUtil.Delete("./rom/" + Mod.FILE_FIELD_DB);
+            FileUtil.Delete("./rom/" + Mod.FILE_FIELD_MOD);
+            FileUtil.Delete("./rom/" + Mod.FILE_FIELD_MDATA);
+            FileUtil.Delete("./rom/" + Mod.FILE_STAGE_BIN_DB);
+            FileUtil.Delete("./rom/" + Mod.FILE_STAGE_BIN_MOD);
+            FileUtil.Delete("./rom/" + Mod.FILE_STAGE_BIN_MDATA);
+
             DivaModManager dmm = new(appConfig);
 
             if (dmm.Mods.Count == 0)
@@ -97,16 +107,6 @@ namespace Another_Song_Merge_Tool
             Console.WriteLine(dmm.ToStringMods());
 
             Console.WriteLine(ToolUtil.CONSOLE_PREFIX + Mod.FILE_PV_MOD + " Generating...");
-
-            FileUtil.Delete("./rom/" + Mod.FILE_PV_DB);
-            FileUtil.Delete("./rom/" + Mod.FILE_PV_MOD);
-            FileUtil.Delete("./rom/" + Mod.FILE_PV_MDATA);
-            FileUtil.Delete("./rom/" + Mod.FILE_FIELD_DB);
-            FileUtil.Delete("./rom/" + Mod.FILE_FIELD_MOD);
-            FileUtil.Delete("./rom/" + Mod.FILE_FIELD_MDATA);
-            FileUtil.Delete("./rom/" + Mod.FILE_STAGE_BIN_DB);
-            FileUtil.Delete("./rom/" + Mod.FILE_STAGE_BIN_MOD);
-            FileUtil.Delete("./rom/" + Mod.FILE_STAGE_BIN_MDATA);
 
             dmm.LoadPvData(appConfig);
 
@@ -178,15 +178,19 @@ namespace Another_Song_Merge_Tool
                 }
             }
 
-            outputs = outputs.OrderBy(x => x.ToString(), StringComparison.OrdinalIgnoreCase.WithNaturalSort()).ToList();
-
             StringBuilder sb = new StringBuilder();
             foreach (var output in outputs)
             {
-                if (string.IsNullOrEmpty(output.ToString()) == false)
-                {
-                    sb.AppendLine(output.ToString());
-                }
+                sb.AppendLine(output.ToString());
+            }
+
+            outputs = sb.ToString().Split("\r\n").ToList();
+            outputs = outputs.OrderBy(x => x.ToString(), StringComparer.Ordinal).ToList();
+
+            sb = new StringBuilder();
+            foreach (var output in outputs)
+            {
+                sb.AppendLine(output.ToString());
             }
 
             FileUtil.WriteFile_UTF_8_NO_BOM(sb.ToString(), "./rom/" + Mod.FILE_FIELD_MOD, false);
