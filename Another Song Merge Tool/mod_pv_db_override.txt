@@ -1,6 +1,9 @@
 
-pv_016.song_name=片想いoverride
-pv_016.performer.0.chara=RIN
+# When the parameter matches exactly, the Value value is overwritten.
+# However, keep in mind that somewhere in every pv_db.txt you load, there must be an original description.
+# (example)
+#pv_001.song_name=恋は戦争 OverRide
+#pv_001.performer.0.chara=RIN
 
 
 

@@ -175,34 +175,13 @@ namespace Another_Song_Merge_Tool
 
             if (appConfig.Config.OverRidePvDb)
             {
-                // 読み込んだSongLine
-                List<SongLine> override_reads = new List<SongLine>();
-
-                // mod_pv_db.txtを全行読み込む
-                if (File.Exists(Mod.FILE_PV_MOD_OVERRIDE) == true)
-                {
-                    foreach (var line in File.ReadAllLines(Mod.FILE_PV_MOD_OVERRIDE))
-                    {
-                        SongLine override_read = new SongLine(line);
-                        if (override_read.Is_Del_Line == false)
-                        {
-                            override_reads.Add(override_read);
-                        }
-                    }
-                }
-
+                sb.Append(Override_PvDb(outputs));
+            }
+            else
+            {
                 foreach (var output in outputs)
                 {
-                    SongLine output_line = new SongLine(output);
-                    if (output_line.Is_Del_Line == false)
-                    {
-                        foreach (var override_line in override_reads)
-                        {
-                            output_line.OverRide(override_line);
-                        }
-                    }
-
-                    var s = output_line.ToString();
+                    var s = output.ToString();
                     if (string.IsNullOrEmpty(s) == false)
                     {
                         sb.AppendLine(s);
@@ -240,6 +219,50 @@ namespace Another_Song_Merge_Tool
             }
 
             FileUtil.WriteFile_UTF_8_NO_BOM(sb.ToString(), "./rom/" + Mod.FILE_FIELD_MOD, false);
+        }
+        private static string Override_PvDb(List<string> outputs)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            // 読み込んだSongLine
+            List<SongLine> override_reads = new List<SongLine>();
+
+            // mod_pv_db.txtを全行読み込む
+            if (File.Exists(Mod.FILE_PV_MOD_OVERRIDE) == true)
+            {
+                foreach (var line in File.ReadAllLines(Mod.FILE_PV_MOD_OVERRIDE))
+                {
+                    if (string.IsNullOrEmpty(line) || line.StartsWith("#"))
+                    {
+                        continue;
+                    }
+                    SongLine override_read = new SongLine(line);
+                    if (override_read.Is_Del_Line == false)
+                    {
+                        override_reads.Add(override_read);
+                    }
+                }
+            }
+
+            foreach (var output in outputs)
+            {
+                SongLine output_line = new SongLine(output);
+                if (output_line.Is_Del_Line == false)
+                {
+                    foreach (var override_line in override_reads)
+                    {
+                        output_line.OverRide(override_line);
+                    }
+                }
+
+                var s = output_line.ToString();
+                if (string.IsNullOrEmpty(s) == false)
+                {
+                    sb.AppendLine(s);
+                }
+            }
+
+            return sb.ToString();
         }
     }
 }
