@@ -33,7 +33,8 @@
         public override string ToString()
         {
             string ret = "";
-            if (this.Is_Del_Line == false)
+            if (this.Is_Del_Line == false && 
+                (!string.IsNullOrEmpty(this.Pv_No) || !string.IsNullOrEmpty(string.Join("", this.Parameters)) || !string.IsNullOrEmpty(this.Value)))
             {
                 ret += this.Pv_No + "." + string.Join(".", this.Parameters) + "=" + this.Value;
             }
