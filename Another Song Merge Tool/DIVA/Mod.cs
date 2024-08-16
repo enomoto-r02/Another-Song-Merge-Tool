@@ -6,6 +6,8 @@
         public static string FILE_PV_MOD = "mod_pv_db.txt";
         public static string FILE_PV_MDATA = "mdata_pv_db.txt";
 
+        public static string FILE_PV_MOD_OVERRIDE = "mod_pv_db_override.txt";
+
         public static string FILE_FIELD_DB = "pv_field.txt";
         public static string FILE_FIELD_MOD = "mod_pv_field.txt";
         public static string FILE_FIELD_MDATA = "mdata_pv_field.txt";

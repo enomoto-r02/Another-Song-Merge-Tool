@@ -2,6 +2,7 @@
 using Another_Song_Merge_Tool.Manager;
 using Another_Song_Merge_Tool.Util;
 using NaturalSort.Extension;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Another_Song_Merge_Tool
@@ -101,6 +102,7 @@ namespace Another_Song_Merge_Tool
             if (dmm.Mods.Count == 0)
             {
                 Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "There are no mods to merge.");
+
                 return;
             }
 
@@ -113,12 +115,19 @@ namespace Another_Song_Merge_Tool
             Mod merge_mod = dmm.Composition();
 
             Output_PvDb(dmm, merge_mod, combine_pvno.PvNos);
+            Console.WriteLine(ToolUtil.CONSOLE_PREFIX + Mod.FILE_PV_MOD + " Generation Complete.");
+
+
             if (appConfig.Config.MergePvField)
             {
                 Output_PvField(dmm);
+                Console.WriteLine(ToolUtil.CONSOLE_PREFIX + Mod.FILE_FIELD_MOD + " Generation Complete.");
+            }
+            if (appConfig.Config.MergeStageData)
+            {
+                Console.WriteLine(ToolUtil.CONSOLE_PREFIX + Mod.FILE_STAGE_BIN_MOD + " Generation Complete.");
             }
 
-            Console.WriteLine(ToolUtil.CONSOLE_PREFIX + Mod.FILE_PV_MOD + " Generation Complete.");
             Console.WriteLine(ToolUtil.CONSOLE_PREFIX + "Tool End.");
             //Console.WriteLine();
             //Console.WriteLine("Press any key to exit.");
@@ -148,20 +157,57 @@ namespace Another_Song_Merge_Tool
             }
             dmm.ToStringLengthLine(outputs, combine_pv_nos);
 
+            // ソート
             // Another Song行は数行まとめて出力するため、StringBuilderのToStringしてからソート
             StringBuilder sb = new StringBuilder();
             foreach (var output in outputs)
             {
-                sb.AppendLine(output.ToString());
+                var s = output.ToString();
+                if (string.IsNullOrEmpty(s) == false)
+                {
+                    sb.AppendLine(s);
+                }
             }
 
             outputs = sb.ToString().Split("\r\n").ToList();
             outputs = outputs.OrderBy(x => x.ToString(), StringComparer.Ordinal).ToList();
+            sb.Clear();
 
-            sb = new StringBuilder();
-            foreach (var output in outputs)
+            if (appConfig.Config.OverRidePvDb)
             {
-                sb.AppendLine(output.ToString());
+                // 読み込んだSongLine
+                List<SongLine> override_reads = new List<SongLine>();
+
+                // mod_pv_db.txtを全行読み込む
+                if (File.Exists(Mod.FILE_PV_MOD_OVERRIDE) == true)
+                {
+                    foreach (var line in File.ReadAllLines(Mod.FILE_PV_MOD_OVERRIDE))
+                    {
+                        SongLine override_read = new SongLine(line);
+                        if (override_read.Is_Del_Line == false)
+                        {
+                            override_reads.Add(override_read);
+                        }
+                    }
+                }
+
+                foreach (var output in outputs)
+                {
+                    SongLine output_line = new SongLine(output);
+                    if (output_line.Is_Del_Line == false)
+                    {
+                        foreach (var override_line in override_reads)
+                        {
+                            output_line.OverRide(override_line);
+                        }
+                    }
+
+                    var s = output_line.ToString();
+                    if (string.IsNullOrEmpty(s) == false)
+                    {
+                        sb.AppendLine(s);
+                    }
+                }
             }
 
             FileUtil.WriteFile_UTF_8_NO_BOM(sb.ToString(), "./rom/" + Mod.FILE_PV_MOD, false);

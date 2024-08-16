@@ -1,0 +1,6 @@
+
+pv_016.song_name=片想いoverride
+pv_016.performer.0.chara=RIN
+
+
+
