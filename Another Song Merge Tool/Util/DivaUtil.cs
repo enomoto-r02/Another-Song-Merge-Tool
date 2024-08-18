@@ -14,6 +14,9 @@
             {"NER", "亞北ネル"},
             {"SAK", "咲音メイコ"},
             {"TET", "重音テト"},
+            
+            // Append
+            {"GUM", "GUMI"},
         };
 
         public static readonly Dictionary<string, string> CHARA_STR_EN = new()
@@ -28,6 +31,9 @@
             {"NER", "Neru"},
             {"SAK", "Sakine"},
             {"TET", "Teto"},
+
+            // Append
+            {"GUM", "GUMI"},
         };
 
         public static string GetChara(string target)

@@ -19,7 +19,14 @@ namespace Another_Song_Merge_Tool.DIVA
             var ret = "";
             if (string.IsNullOrEmpty(this.Chara) == false)
             {
-                ret = DivaUtil.CHARA_STR[this.Chara];
+                try
+                {
+                    ret = DivaUtil.CHARA_STR[this.Chara];
+                }
+                catch(KeyNotFoundException)
+                {
+                    ret = "初音ミク";
+                }
             }
             return ret;
         }
@@ -29,7 +36,14 @@ namespace Another_Song_Merge_Tool.DIVA
             var ret = "";
             if (string.IsNullOrEmpty(this.Chara) == false)
             {
-                ret = DivaUtil.CHARA_STR_EN[this.Chara];
+                try
+                {
+                    ret = DivaUtil.CHARA_STR_EN[this.Chara];
+                }
+                catch (KeyNotFoundException)
+                {
+                    ret = "Miku";
+                }
             }
             return ret;
         }
