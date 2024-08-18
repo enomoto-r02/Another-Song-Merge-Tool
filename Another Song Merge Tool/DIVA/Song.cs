@@ -140,7 +140,7 @@ namespace Another_Song_Merge_Tool.DIVA
                 }
                 Performer p = this.Performer[i];
                 //sb.Append(p.Chara);
-                sb.Append(p.ViewChara());
+                sb.Append(p.ViewCharaValue());
             }
 
             return sb.ToString();
@@ -158,7 +158,7 @@ namespace Another_Song_Merge_Tool.DIVA
                 }
                 Performer p = this.Performer[i];
                 //sb.Append(p.Chara);
-                sb.Append(p.ViewCharaEn());
+                sb.Append(p.ViewCharaValueEn());
             }
 
             return sb.ToString();

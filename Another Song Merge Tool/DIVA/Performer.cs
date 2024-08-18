@@ -5,7 +5,7 @@ namespace Another_Song_Merge_Tool.DIVA
 
     public class Performer
     {
-        public string Chara { get; set; }
+        public string Chara { get; private set; }
         public string Type { get; set; }
         public int Index { get; set; }
 
@@ -14,36 +14,42 @@ namespace Another_Song_Merge_Tool.DIVA
             this.Index = -1;
         }
 
-        public string ViewChara()
+        public void SetChara(string target)
+        {
+            if(DivaUtil.CHARA_STR.ContainsKey(target))
+            {
+                this.Chara = target;
+            }
+            else
+            {
+                this.Chara = "MIK";
+            }
+        }
+
+        public string ViewCharaValue()
         {
             var ret = "";
-            if (string.IsNullOrEmpty(this.Chara) == false)
+            try
             {
-                try
-                {
-                    ret = DivaUtil.CHARA_STR[this.Chara];
-                }
-                catch(KeyNotFoundException)
-                {
-                    ret = "初音ミク";
-                }
+                ret = DivaUtil.CHARA_STR[this.Chara];
+            }
+            catch (Exception)
+            {
+                ret = "初音ミク";
             }
             return ret;
         }
 
-        public string ViewCharaEn()
+        public string ViewCharaValueEn()
         {
             var ret = "";
-            if (string.IsNullOrEmpty(this.Chara) == false)
+            try
             {
-                try
-                {
-                    ret = DivaUtil.CHARA_STR_EN[this.Chara];
-                }
-                catch (KeyNotFoundException)
-                {
-                    ret = "Miku";
-                }
+                ret = DivaUtil.CHARA_STR_EN[this.Chara];
+            }
+            catch (Exception)
+            {
+                ret = "Miku";
             }
             return ret;
         }

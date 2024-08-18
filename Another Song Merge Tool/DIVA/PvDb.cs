@@ -90,7 +90,8 @@ namespace Another_Song_Merge_Tool.DIVA
 
                             if (song_line.Parameters[2] == "chara")
                             {
-                                base_performer.Chara = song_line.Value;
+                                base_performer.SetChara(song_line.Value);
+                                song_line.Value = base_performer.Chara;
                                 base_performer.Index = int.Parse(song_line.Parameters[1]);
                             }
                             else if (song_line.Parameters[2] == "type")
