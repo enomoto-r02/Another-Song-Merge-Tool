@@ -73,6 +73,11 @@ namespace Another_Song_Merge_Tool.DIVA
                     {
                         base_song.Name_En = song_line.Value;
                     }
+                    // Eden Projectに記載されているsong_name_en2は、マージ後に英語環境でも日本語の楽曲名が表示されるためスキップする
+                    else if (song_line.Parameters[0] == "song_name_en2")
+                    {
+                        continue;
+                    }
                     else if (song_line.Parameters[0] == "song_file_name")
                     {
                         base_song.Song_File_Name = song_line.Value;
