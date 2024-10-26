@@ -1,4 +1,6 @@
 ﻿using Another_Song_Merge_Tool.Util;
+using Microsoft.VisualBasic;
+using NaturalSort.Extension;
 
 namespace Another_Song_Merge_Tool.DIVA
 {
@@ -29,7 +31,8 @@ namespace Another_Song_Merge_Tool.DIVA
                 Song base_song = new Song();
                 Performer base_performer = new Performer();
 
-                foreach (var line in File.ReadAllLines(this.Db_Path))
+                // ファイルを読み込み、自然ソートを行う（another_songが11曲以上あるMODの対応）
+                foreach (var line in File.ReadAllLines(this.Db_Path).OrderBy(x => x, StringComparison.OrdinalIgnoreCase.WithNaturalSort()))
                 {
                     if (string.IsNullOrEmpty(line.Replace("\t", "")) || line.StartsWith('#'))
                     {
