@@ -1,7 +1,7 @@
 enabled = true
 name = "Another Song Merge Tool"
 author = "Enomoto"
-version = "4.0.3"
+version = "4.0.3a"
 description = ""
 dll = ["Another Song Merge Tool.dll"]
 include = ["."]
