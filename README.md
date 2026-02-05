@@ -8,4 +8,4 @@ Caution:
 
 It is very likely that we will not be able to respond to requests due to unfamiliarity with GitHub and lack of technical skills.
 
-We are unable to respond to pull requests. Use it for viewing the source only or for running in a local environment.
+We are unable to respond to pull requests. Please use it within the scope of the License.
